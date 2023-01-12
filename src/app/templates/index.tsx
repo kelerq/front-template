@@ -1,8 +1,22 @@
+import { LoadingOverlay } from 'app/components/LoadingOverlay';
 import React from 'react';
-import './index.css';
+import { useSelector } from 'react-redux';
+import { ApplicationState } from 'state/applicationState';
+import { AuthenticatedTemplate } from './authenticated';
+import { AuthorizationTemplate } from './authorization';
 
-function App() {
-    return <div className="text-center text-green-500">Hello</div>;
+export function App(): JSX.Element {
+    const authenticated = useSelector((state: ApplicationState) => state.authorization.authenticated);
+    const cachedUserLoginPending = useSelector((state: ApplicationState) => state.authorization.cachedUserLoginPending);
+    const loginPending = useSelector((state: ApplicationState) => state.authorization.loginPending);
+
+    return (
+        <>
+            {(cachedUserLoginPending || loginPending) && <LoadingOverlay pending />}
+
+            {!authenticated && !cachedUserLoginPending && !loginPending && <AuthorizationTemplate />}
+
+            {authenticated && <AuthenticatedTemplate />}
+        </>
+    );
 }
-
-export default App;

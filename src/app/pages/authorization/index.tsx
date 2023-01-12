@@ -1,18 +1,14 @@
-import { LoginForm } from './LoginForm';
+import { Routes } from 'react-router-dom';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { DispatchType } from 'state/configureStore';
-import { loginThunk } from 'state/global/authorization/reducer';
+import { Route } from 'react-router-dom';
+import { LoginContainer } from './login';
+import { SignupContainer } from './signup';
 
-export function paAuthorizationPage() {
-    const dispatch = useDispatch<DispatchType>();
-    const history = useHistory();
-
-    // const loginPending = useSelector((state: ApplicationState) => state.authorization.loginPending);
-    // const loginError = useSelector((state: ApplicationState) => state.authorization.loginError);
-
-    const authenticate = (username: string, password: string) =>
-        dispatch(loginThunk({ username, password })).then(r => history.replace('/'));
-    return <LoginForm pending={loginPending} loginError={loginError} onSubmitLogin={authenticate} />;
+export function AuthorizationContainer(): JSX.Element {
+    return (
+        <Routes>
+            <Route index path="login" element={<LoginContainer />} />
+            <Route path="signup" element={<SignupContainer />} />
+        </Routes>
+    );
 }

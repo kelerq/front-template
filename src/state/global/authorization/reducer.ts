@@ -1,16 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { authLogin, refreshToken } from 'core/api/endpoints/auth/auth';
+import {
+    authActivation,
+    authLogin,
+    authLogout,
+    authSignup,
+    authUserDetails,
+} from 'core/api/endpoints/authorization/authorization';
 import { User } from 'core/domainModels/authorization/user';
 import TokenStorage from 'core/services/tokenStorage/tokenStorage';
-import { decodeJWT } from 'core/helpers/authorization';
-import { IRequestError } from 'core/api/models/iRequestError';
 import { resetReduxAction } from 'state/actions';
+import { Signup } from 'core/domainModels/authorization/signup';
 
 export interface AuthorizationState {
     authenticated: boolean;
     user: User | undefined;
     loginPending: boolean;
     loginError: string;
+    signupPending: boolean;
+    signupError: string;
+    activationPending: boolean;
+    activationError: string;
     cachedUserLoginPending: boolean;
     cachedUserLoginError: string;
 }
@@ -20,52 +29,104 @@ const initialState: AuthorizationState = {
     user: undefined,
     loginPending: false,
     loginError: '',
+    signupPending: false,
+    signupError: '',
     cachedUserLoginPending: false,
     cachedUserLoginError: '',
+    activationPending: false,
+    activationError: '',
 };
 
 const name = 'authorization';
 
-type LoginThunkParams = {
-    username: string;
-    password: string;
-};
+const activationThunk = createAsyncThunk(
+    `${name}/activation`,
+    async (
+        params: {
+            email: string;
+            activationToken: string;
+        },
+        thunkAPI,
+    ) => {
+        try {
+            const activationResponse = await authActivation(params.email, params.activationToken);
+            if (!activationResponse) {
+                thunkAPI.rejectWithValue('Activation failed');
+            }
+            return activationResponse;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
+    },
+);
 
-const loginThunk = createAsyncThunk(`${name}/login`, async (params: LoginThunkParams, thunkAPI) => {
+const signupThunk = createAsyncThunk(`${name}/signup`, async (params: Signup, thunkAPI) => {
     try {
-        const token = await authLogin(params.username, params.password);
-        TokenStorage.saveToken(token);
-        return decodeJWT(token);
+        const signupResponse: string = await authSignup(params);
+        if (!signupResponse) {
+            thunkAPI.rejectWithValue('User singup failed');
+        }
+        return signupResponse;
     } catch (error) {
         return thunkAPI.rejectWithValue(error);
     }
 });
 
-const loginCachedUserThunk = createAsyncThunk(
-    `${name}/loginCachedUser`,
-    async (params: {}, thunkAPI) => {
+const loginThunk = createAsyncThunk(
+    `${name}/login`,
+    async (
+        params: {
+            email: string;
+            password: string;
+        },
+        thunkAPI,
+    ) => {
         try {
-            const token = await refreshToken();
-            TokenStorage.saveToken(token);
-            return decodeJWT(token);
+            const loginResponse = await authLogin(params.email, params.password);
+            if (!loginResponse) {
+                thunkAPI.rejectWithValue('Login user failed');
+            }
+            TokenStorage.saveToken(loginResponse.accessToken);
+            const user = await authUserDetails();
+            if (!user) {
+                thunkAPI.rejectWithValue('Getting authorization user details failed');
+            }
+            return user;
         } catch (error) {
             TokenStorage.removeToken();
             return thunkAPI.rejectWithValue(error);
         }
     },
-    {
-        condition: (params: {}, { getState, extra }) => {
-            const savedToken = TokenStorage.readToken();
-            if (!savedToken) {
-                return false;
-            }
-        },
-    },
 );
 
+const loginCachedUserThunk = createAsyncThunk(`${name}/loginCachedUser`, async (params: {}, thunkAPI) => {
+    try {
+        const savedToken = TokenStorage.readToken();
+        if (!savedToken) {
+            thunkAPI.rejectWithValue('Login cached user failed');
+        }
+        const user = await authUserDetails();
+        if (!user) {
+            thunkAPI.rejectWithValue('Getting authorization user details failed');
+        }
+        return user;
+    } catch (error) {
+        TokenStorage.removeToken();
+        return thunkAPI.rejectWithValue(error);
+    }
+});
+
 const logoutThunk = createAsyncThunk<boolean, void, {}>(`${name}/logout`, async (params, thunkAPI) => {
-    TokenStorage.removeToken();
-    return true;
+    try {
+        const logoutResponse = await authLogout();
+        if (!logoutResponse) {
+            thunkAPI.rejectWithValue('Logout action failed');
+        }
+        TokenStorage.removeToken();
+        return true;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
 });
 
 const authorizationSlice = createSlice({
@@ -86,7 +147,31 @@ const authorizationSlice = createSlice({
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.loginPending = false;
-                state.loginError = (action.payload as IRequestError)?.toString();
+                state.loginError = action.error.toString();
+            })
+            .addCase(signupThunk.pending, (state, action) => {
+                state.signupPending = true;
+                state.signupError = '';
+            })
+            .addCase(signupThunk.fulfilled, (state, action) => {
+                state.signupError = '';
+                state.signupPending = false;
+            })
+            .addCase(signupThunk.rejected, (state, action) => {
+                state.signupPending = false;
+                state.signupError = action.error.toString();
+            })
+            .addCase(activationThunk.pending, (state, action) => {
+                state.activationPending = true;
+                state.activationError = '';
+            })
+            .addCase(activationThunk.fulfilled, (state, action) => {
+                state.activationError = '';
+                state.activationPending = false;
+            })
+            .addCase(activationThunk.rejected, (state, action) => {
+                state.activationPending = false;
+                state.activationError = action.error.toString();
             })
             .addCase(loginCachedUserThunk.pending, (state, action) => {
                 state.cachedUserLoginPending = true;
@@ -94,13 +179,13 @@ const authorizationSlice = createSlice({
             })
             .addCase(loginCachedUserThunk.fulfilled, (state, action) => {
                 state.cachedUserLoginPending = false;
-                state.user = action.payload;
                 state.authenticated = true;
+                state.user = action.payload;
             })
             .addCase(loginCachedUserThunk.rejected, (state, action) => {
                 state.cachedUserLoginPending = false;
                 state.authenticated = false;
-                state.cachedUserLoginError = (action.payload as IRequestError)?.toString();
+                state.cachedUserLoginError = action.error.toString();
             })
             .addCase(logoutThunk.fulfilled, (state, action) => {
                 state.authenticated = false;
@@ -117,4 +202,4 @@ const authorizationSlice = createSlice({
 const { reducer } = authorizationSlice;
 
 export { reducer as authorizationReducer };
-export { loginThunk, loginCachedUserThunk, logoutThunk };
+export { loginThunk, logoutThunk, loginCachedUserThunk, signupThunk, activationThunk };

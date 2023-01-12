@@ -1,17 +1,30 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOM from 'react-dom';
 import './index.css';
-import App from './app/templates';
 import reportWebVitals from './reportWebVitals';
-import { ChakraProvider } from '@chakra-ui/react';
+import { Provider as ReduxProvider } from 'react-redux';
+import { App } from 'app/templates';
+import { store } from 'state/store';
+import { BrowserRouter } from 'react-router-dom';
+import { loginCachedUserThunk } from 'state/global/authorization/reducer';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(
-    <ChakraProvider>
+store.dispatch(loginCachedUserThunk({}));
+
+const ConnectedApp = () => (
+    <ReduxProvider store={store}>
         <React.StrictMode>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </React.StrictMode>
-    </ChakraProvider>,
+    </ReduxProvider>
+);
+
+ReactDOM.render(
+    <React.StrictMode>
+        <ConnectedApp />
+    </React.StrictMode>,
+    document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

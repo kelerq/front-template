@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --navigation-height: 5rem;
+    }
+    html {
+        @apply bg-primary-gradient h-full font-sans text-white;
+        font-size: 62.5%;
+    }
+}
+
+@layer utilities {
+    .text-shadow {
+        text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
+    }
+}
