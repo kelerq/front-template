@@ -7,7 +7,7 @@ export const resetRedux = (dispatch, getState: () => ApplicationState) => {
     persistor.purge();
     dispatch(resetReduxAction({ preserveAuth: false }));
 
-    const user = state.authorization.user;
+    const user = state.users.user;
     if (user) {
         //  dispatch(initializeApplication(user, { skipDisplayPreferencesFetch: true }));
     }

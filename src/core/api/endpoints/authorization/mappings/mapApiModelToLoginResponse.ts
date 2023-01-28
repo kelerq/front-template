@@ -1,4 +1,4 @@
-import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
+import { LoginResponse } from 'core/domainModels/authorization/responses/loginResponse';
 
 export const mapApiModelToLoginResponse = (apiModel): LoginResponse => {
     return {

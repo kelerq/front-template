@@ -1,11 +1,12 @@
 import { VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { inputClasses } from '../classes/inputClasses';
-import { InputContainer } from '../InputContainer';
-import { Label } from '../Label';
+import { inputClasses } from '../../classes/inputClasses';
+import { InputContainer } from '../../InputContainer';
+import { Label } from '../../Label';
 
 export interface TextProps extends VariantProps<typeof inputClasses> {
+    disabled?: boolean;
     password?: boolean;
     autofocus?: boolean;
     label?: string | JSX.Element;
@@ -41,9 +42,10 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextProps>((props, r
                     type={props.password ? 'password' : 'text'}
                     ref={ref}
                     placeholder={props.placeholder}
+                    disabled={props.disabled}
                     {...props.register}
                 />
-                {props.error && <div className="text-red-500 text-xs mt-2">{props.error}</div>}
+                {props.error && <div className="mt-2 text-xs text-destructive">{props.error}</div>}
             </Label>
         </InputContainer>
     );

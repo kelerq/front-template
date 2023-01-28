@@ -7,9 +7,11 @@ import storage from 'redux-persist/lib/storage';
 import { resetReduxAction } from './actions';
 import { ApplicationState } from './applicationState';
 import { authorizationReducer, logoutThunk } from './global/authorization/reducer';
+import { usersReducer } from './global/users/reducer';
 
 const state = {
     authorization: authorizationReducer,
+    users: usersReducer,
 };
 
 const combinedReducers = combineReducers<ApplicationState>(state);

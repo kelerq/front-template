@@ -1,4 +1,4 @@
-import { User } from 'core/domainModels/authorization/user';
+import { User } from 'core/domainModels/users/user';
 
 export const mapApiModelToUserInfo = (apiModel): User => {
     return {

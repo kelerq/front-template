@@ -3,6 +3,7 @@ import React from 'react';
 
 export interface InputContainerProps {
     children: React.ReactNode;
+    onKeyDown?: (event: React.KeyboardEvent) => void;
     className?: string;
 }
 

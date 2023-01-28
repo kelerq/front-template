@@ -4,6 +4,7 @@ import React from 'react';
 import { labelClasses } from '../classes/labelClasses';
 
 interface LabelProps extends VariantProps<typeof labelClasses> {
+    id?: string;
     content?: string | JSX.Element;
     children: React.ReactNode;
 }

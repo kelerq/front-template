@@ -1,19 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-    authActivation,
-    authLogin,
-    authLogout,
-    authSignup,
-    authUserDetails,
-} from 'core/api/endpoints/authorization/authorization';
-import { User } from 'core/domainModels/authorization/user';
+import { authActivation, authLogin, authLogout, authSignup } from 'core/api/endpoints/authorization/authorization';
+
 import TokenStorage from 'core/services/tokenStorage/tokenStorage';
 import { resetReduxAction } from 'state/actions';
-import { Signup } from 'core/domainModels/authorization/signup';
+import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
 
 export interface AuthorizationState {
     authenticated: boolean;
-    user: User | undefined;
     loginPending: boolean;
     loginError: string;
     signupPending: boolean;
@@ -26,7 +19,6 @@ export interface AuthorizationState {
 
 const initialState: AuthorizationState = {
     authenticated: false,
-    user: undefined,
     loginPending: false,
     loginError: '',
     signupPending: false,
@@ -60,7 +52,7 @@ const activationThunk = createAsyncThunk(
     },
 );
 
-const signupThunk = createAsyncThunk(`${name}/signup`, async (params: Signup, thunkAPI) => {
+const signupThunk = createAsyncThunk(`${name}/signup`, async (params: SignupRequest, thunkAPI) => {
     try {
         const signupResponse: string = await authSignup(params);
         if (!signupResponse) {
@@ -87,11 +79,7 @@ const loginThunk = createAsyncThunk(
                 thunkAPI.rejectWithValue('Login user failed');
             }
             TokenStorage.saveToken(loginResponse.accessToken);
-            const user = await authUserDetails();
-            if (!user) {
-                thunkAPI.rejectWithValue('Getting authorization user details failed');
-            }
-            return user;
+            return true;
         } catch (error) {
             TokenStorage.removeToken();
             return thunkAPI.rejectWithValue(error);
@@ -99,22 +87,29 @@ const loginThunk = createAsyncThunk(
     },
 );
 
-const loginCachedUserThunk = createAsyncThunk(`${name}/loginCachedUser`, async (params: {}, thunkAPI) => {
-    try {
-        const savedToken = TokenStorage.readToken();
-        if (!savedToken) {
-            thunkAPI.rejectWithValue('Login cached user failed');
+const loginCachedUserThunk = createAsyncThunk(
+    `${name}/loginCachedUser`,
+    async (params: {}, thunkAPI) => {
+        try {
+            const savedToken = TokenStorage.readToken();
+            if (!savedToken) {
+                thunkAPI.rejectWithValue('Login cached user failed');
+            }
+            return true;
+        } catch (error) {
+            TokenStorage.removeToken();
+            return thunkAPI.rejectWithValue(error);
         }
-        const user = await authUserDetails();
-        if (!user) {
-            thunkAPI.rejectWithValue('Getting authorization user details failed');
-        }
-        return user;
-    } catch (error) {
-        TokenStorage.removeToken();
-        return thunkAPI.rejectWithValue(error);
-    }
-});
+    },
+    {
+        condition: (params: {}, { getState, extra }) => {
+            const savedToken = TokenStorage.readToken();
+            if (!savedToken) {
+                return false;
+            }
+        },
+    },
+);
 
 const logoutThunk = createAsyncThunk<boolean, void, {}>(`${name}/logout`, async (params, thunkAPI) => {
     try {
@@ -143,7 +138,6 @@ const authorizationSlice = createSlice({
                 state.authenticated = true;
                 state.loginError = '';
                 state.loginPending = false;
-                state.user = action.payload;
             })
             .addCase(loginThunk.rejected, (state, action) => {
                 state.loginPending = false;
@@ -180,7 +174,6 @@ const authorizationSlice = createSlice({
             .addCase(loginCachedUserThunk.fulfilled, (state, action) => {
                 state.cachedUserLoginPending = false;
                 state.authenticated = true;
-                state.user = action.payload;
             })
             .addCase(loginCachedUserThunk.rejected, (state, action) => {
                 state.cachedUserLoginPending = false;
@@ -189,7 +182,6 @@ const authorizationSlice = createSlice({
             })
             .addCase(logoutThunk.fulfilled, (state, action) => {
                 state.authenticated = false;
-                state.user = undefined;
             })
             .addCase(resetReduxAction, (state, action) => {
                 if (action.payload.preserveAuth) {

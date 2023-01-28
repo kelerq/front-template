@@ -1,6 +1,6 @@
-import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
-import { Signup } from 'core/domainModels/authorization/signup';
-import { User } from 'core/domainModels/authorization/user';
+import { LoginResponse } from 'core/domainModels/authorization/responses/loginResponse';
+import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
+import { User } from 'core/domainModels/users/user';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
 import { authEndpointURL as authURL } from './common';
 import { mapApiModelToLoginResponse } from './mappings/mapApiModelToLoginResponse';
@@ -27,7 +27,7 @@ export const authLogin = (username: string, password: string): Promise<LoginResp
         });
 };
 
-export const authSignup = (model: Signup): Promise<string> => {
+export const authSignup = (model: SignupRequest): Promise<string> => {
     const authSignupURL = `${authURL}/register`;
 
     return axios

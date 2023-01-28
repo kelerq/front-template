@@ -2,8 +2,8 @@ import { Button } from 'app/components/Button';
 import { Col } from 'app/components/Col';
 import { Container } from 'app/components/Container';
 import { FormSection, FormSectionHeader } from 'app/components/FormSection';
-import { TextInput } from 'app/components/TextInput';
-import { Signup } from 'core/domainModels/authorization/signup';
+import { TextInput } from 'app/components/inputs/TextInput';
+import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
 import { z } from 'zod';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -12,11 +12,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 interface SignupFormProps {
     pending: boolean;
     loginError: string;
-    onSubmit: (form: Signup) => void;
+    onSubmit: (form: SignupRequest) => void;
 }
 
 export function SignupForm(props: SignupFormProps): JSX.Element {
-    const submit: SubmitHandler<Signup> = (data: Signup) => {
+    const submit: SubmitHandler<SignupRequest> = (data: SignupRequest) => {
         props.onSubmit(data);
     };
 

@@ -14,7 +14,7 @@ import { logoutThunk } from 'state/global/authorization/reducer';
 
 export const HomeHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const user = useSelector((state: ApplicationState) => state.authorization.user);
+    const user = useSelector((state: ApplicationState) => state.users.authenticatedUser);
     const dispatch = useDispatch<DispatchType>();
     const navigate = useNavigate();
 
@@ -46,17 +46,17 @@ export const HomeHeader = () => {
                         <li>
                             <Link to="/im/ui">Ui</Link>
                         </li>
-                        {/* <li className="md:hidden lg:block">
-                            <Link to="/im/contacts">Contacts</Link>
-                        </li>
                         <li className="md:hidden lg:block">
+                            <Link to="/im/settings/account">User</Link>
+                        </li>
+                        {/* <li className="md:hidden lg:block">
                             <Link to="/im/settings">Settings</Link>
                         </li> */}
                     </ul>
                 </nav>
 
-                <div className="ml-auto h-full flex items-center">
-                    <p className="text-md mr-6">Witaj {user?.firstName}</p>
+                <div className="flex items-center h-full ml-auto">
+                    <p className="mr-6 text-md">Witaj {user?.firstName}</p>
                     <Button variant="primary" modifier="outline" onClick={logout}>
                         Log out
                     </Button>

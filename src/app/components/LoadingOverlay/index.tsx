@@ -1,20 +1,23 @@
 import React from 'react';
-import { Spinner } from '@chakra-ui/spinner';
+import { ClipLoader } from 'react-spinners';
 
 interface LoadingOverlayProps {
     pending: boolean;
     message?: string;
     errorMessage?: string;
     color?: 'accent' | 'black';
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    size?: number;
 }
+
+const DEFAULT_SIZE = 25;
+const DEFAULT_COLOR = 'white';
 
 export function LoadingOverlay(props: LoadingOverlayProps): JSX.Element {
     return (
         <div className="z-50 flex flex-col h-screen justify-center">
             {props.pending ? (
                 <div className="m-auto text-center">
-                    <Spinner size={props.size || 'md'} color={props.color} />
+                    <ClipLoader size={props.size || DEFAULT_SIZE} color={props.color || DEFAULT_COLOR} />
                     <span>
                         <p>{props.message || 'Loading...'}</p>
                     </span>
@@ -24,7 +27,7 @@ export function LoadingOverlay(props: LoadingOverlayProps): JSX.Element {
             )}
             {props.errorMessage && (
                 <div className="m-auto text-center">
-                    <Spinner size={props.size || 'md'} color={props.color} />
+                    <ClipLoader size={props.size || DEFAULT_SIZE} color={props.color || DEFAULT_COLOR} />
                     <span>
                         <p>{props.errorMessage}</p>
                     </span>

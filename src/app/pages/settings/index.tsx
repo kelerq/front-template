@@ -1,15 +1,14 @@
 import { TabsNavigator } from 'app/components/TabsNavigator';
 import React from 'react';
-import { UserInfoContainer } from './userInfo';
 import { UsersContainer } from './users';
 import { PermissionsContainer } from './permissions';
+import { AccountContainer } from './account';
 
-export function UserContainer(): JSX.Element {
-    // const { path } = useRouteMatch();
+export function SettingsContainter(): JSX.Element {
     const tabs = [
         {
             name: 'Moje konto',
-            component: <UserInfoContainer />,
+            component: <AccountContainer />,
             path: 'account',
         },
         {
@@ -23,5 +22,5 @@ export function UserContainer(): JSX.Element {
             path: 'permissions',
         },
     ];
-    return <TabsNavigator tabs={tabs} path={'path'} />;
+    return <TabsNavigator tabs={tabs} path={'settings'} routing />;
 }

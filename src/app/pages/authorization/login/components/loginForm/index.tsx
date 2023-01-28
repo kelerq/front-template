@@ -2,7 +2,7 @@ import { Button } from 'app/components/Button';
 import { Col } from 'app/components/Col';
 import { Container } from 'app/components/Container';
 import { FormSection, FormSectionHeader } from 'app/components/FormSection';
-import { TextInput } from 'app/components/TextInput';
+import { TextInput } from 'app/components/inputs/TextInput';
 import React, { useState } from 'react';
 
 interface LoginFormProps {

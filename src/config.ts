@@ -15,3 +15,5 @@ const config = {
 };
 console.log('App configuration', config);
 export default Object.freeze(config);
+
+// PATTERN SINGLETON
