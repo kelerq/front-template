@@ -9,7 +9,8 @@ export const useUser = (id: string) => {
     const [user, setUser] = useState<User>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string>();
-    const [permissions, setPermissions] = useState<Array<UserPermission>>();
+    const [userPermissions, setUserPermissions] = useState<Array<UserPermission>>();
+    const [permissions, setPermissions] = useState<Array<Permission>>();
 
     useEffect(() => {
         const fetchPermissions = async () => {
@@ -17,7 +18,8 @@ export const useUser = (id: string) => {
             try {
                 const permissions = await getPermissions();
                 const userPermissions = await getUserPermissions(id, permissions as Array<Permission>);
-                setPermissions(userPermissions as Array<UserPermission>);
+                setUserPermissions(userPermissions as Array<UserPermission>);
+                setPermissions(permissions as Array<Permission>);
             } catch (err) {
                 setError(err as string);
             }
@@ -31,7 +33,10 @@ export const useUser = (id: string) => {
             setIsLoading(true);
             try {
                 const user = await getUserDetails(id);
-                setUser(user as User);
+                setUser({
+                    ...user,
+                    id: id,
+                } as User);
             } catch (err) {
                 setError(err as string);
             }
@@ -40,5 +45,5 @@ export const useUser = (id: string) => {
         fetchUser();
     }, [id]);
 
-    return { user, permissions, isLoading, error };
+    return { user, userPermissions, isLoading, error, permissions };
 };

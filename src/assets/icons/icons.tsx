@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const DeleteIcon = () => {
+interface IconProps {
+    className?: string;
+}
+
+export const DeleteIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -8,7 +12,7 @@ export const DeleteIcon = () => {
     );
 };
 
-export const EditIcon = () => {
+export const EditIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path
@@ -20,7 +24,7 @@ export const EditIcon = () => {
     );
 };
 
-export const LockIcon = () => {
+export const LockIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path
@@ -32,7 +36,7 @@ export const LockIcon = () => {
     );
 };
 
-export const UserIcon = () => {
+export const UserIcon = ({ className }: IconProps) => {
     return (
         <svg
             fill="none"
@@ -48,7 +52,7 @@ export const UserIcon = () => {
     );
 };
 
-export const ActiveIcon = () => {
+export const ActiveIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
@@ -56,7 +60,7 @@ export const ActiveIcon = () => {
     );
 };
 
-export const NonActiveIcon = () => {
+export const NonActiveIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path
@@ -68,15 +72,22 @@ export const NonActiveIcon = () => {
     );
 };
 
-export const PlusIcon = () => {
+export const PlusIcon = ({ className }: IconProps) => {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            className={className}
+        >
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
     );
 };
 
-export const MinusIcon = () => {
+export const MinusIcon = ({ className }: IconProps) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />

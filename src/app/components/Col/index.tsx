@@ -10,7 +10,7 @@ interface ColProps {
 export const Col = ({ children, title, className }: ColProps) => {
     return (
         <div className={classNames('flex flex-col space-y-3 p-8', className)}>
-            {title ? <h1 className="text-lg font-bold border-b mb-5">{title}</h1> : <></>}
+            {title ? <h1 className="mb-5 text-lg font-bold border-b">{title}</h1> : <></>}
             {children}
         </div>
     );

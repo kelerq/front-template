@@ -8,11 +8,10 @@ import { AccountComponent } from './components/account';
 import { PermissionsComponent } from './components/permissions';
 import { OtherComponent } from './components/other';
 import { Row } from 'app/components/Row';
-import { UserIcon } from 'assets/icons/icons';
 
 export const UserEditContainer = () => {
     const { id } = useParams();
-    const { user, permissions, isLoading, error } = useUser(id ? id : '');
+    const { user, userPermissions, isLoading, error, permissions } = useUser(id ? id : '');
 
     const tabs = [
         {
@@ -22,7 +21,7 @@ export const UserEditContainer = () => {
         },
         {
             name: 'Zezwolenia',
-            component: <PermissionsComponent user={user!!} permissions={permissions!!} />,
+            component: <PermissionsComponent user={user!!} userPermissions={userPermissions!!} permissions={permissions!!} />,
             path: 'permissions',
         },
         {
@@ -45,7 +44,7 @@ export const UserEditContainer = () => {
                                 <h1 className="mb-4 text-3xl font-medium text-gray-900 title-font">
                                     {user.firstName} {user.lastName}
                                 </h1>
-                                <TabsNavigator tabs={tabs} path={'edit'} />
+                                {user && permissions && userPermissions && <TabsNavigator tabs={tabs} path={'edit'} />}
                             </div>
                         </Row>
                     </Container>

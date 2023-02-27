@@ -12,6 +12,7 @@ interface ConfirmationModalProps {
     onClose: () => void;
     onConfirm: () => void;
     title: string;
+    loading?: boolean;
 }
 
 export const ConfirmationModal = ({
@@ -21,6 +22,7 @@ export const ConfirmationModal = ({
     onClose,
     onConfirm,
     title,
+    loading,
 }: ConfirmationModalProps): JSX.Element => {
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose} size="small">
@@ -29,10 +31,10 @@ export const ConfirmationModal = ({
                 {children}
             </ModalBody>
             <ModalFooter className={className}>
-                <Button onClick={onConfirm} className="mr-2" size="medium" variant="primary" modifier="outline">
+                <Button onClick={onConfirm} className="mr-2" size="medium" variant="primary" modifier="outline" loading={loading}>
                     Confirm
                 </Button>
-                <Button onClick={onClose} size="medium" variant="destructive" modifier="outline">
+                <Button onClick={onClose} size="medium" variant="destructive" modifier="outline" disabled={loading}>
                     Cancel
                 </Button>
             </ModalFooter>

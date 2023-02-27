@@ -1,11 +1,11 @@
 import React from 'react';
+import { ColDef } from 'ag-grid-community';
 import { fieldName } from 'core/helpers/aggrid';
 import { Button } from 'app/components/Button';
-import { ColDef } from 'ag-grid-community';
-import { PlusIcon } from 'assets/icons/icons';
-import { Permission } from 'core/domainModels/users/permission';
+import { MinusIcon } from 'assets/icons/icons';
+import { UserPermission } from 'core/domainModels/users/userPermission';
 
-export const permissionsTableColumnsDefs: ColDef = {
+export const userPermissionsTableColumnsDefs: ColDef = {
     sortable: true,
     filter: true,
     floatingFilter: true,
@@ -14,7 +14,7 @@ export const permissionsTableColumnsDefs: ColDef = {
     flex: 1,
 };
 
-export const permissionsTableColumns = (addUserPermissionAction: (id: string) => void): Array<ColDef> => {
+export const userPermissionsTableColumns = (deleteUserPermissionAction: (id: string) => void): Array<ColDef> => {
     const columns: Array<ColDef> = [
         {
             colId: '0',
@@ -31,22 +31,24 @@ export const permissionsTableColumns = (addUserPermissionAction: (id: string) =>
             maxWidth: 50,
         },
         {
-            colId: fieldName<Permission>('title'),
-            field: fieldName<Permission>('title'),
+            colId: fieldName<UserPermission>('title'),
+            field: fieldName<UserPermission>('title'),
             headerName: 'Title',
             filter: 'agTextColumnFilter',
         },
         {
-            headerName: 'Actions',
+            headerName: '',
+            maxWidth: 50,
             field: 'actions',
             cellRenderer: params => {
                 return (
                     <div className="flex flex-row justify-center items-center h-full [&_Button]:mr-2">
                         <Button
-                            icon={<PlusIcon />}
+                            icon={<MinusIcon />}
                             onClick={() => {
-                                addUserPermissionAction(params.data.id);
+                                deleteUserPermissionAction(params.data.id);
                             }}
+                            disabled={params.value}
                         >
                             {}
                         </Button>

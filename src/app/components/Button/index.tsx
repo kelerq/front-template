@@ -28,6 +28,7 @@ export const Button = ({
     className,
     icon,
     replacePath,
+    ...props
 }: ButtonProps) => {
     return (
         <>

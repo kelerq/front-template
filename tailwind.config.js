@@ -30,6 +30,9 @@ module.exports = {
                 'gray-dark-hover': '#3c3d53',
                 destructive: '#eb5757',
                 'destructive-hover': '#fa6563',
+                'table-border': '#68686e',
+                'table-header-background': '#222628',
+                'table-background': '#181D1F',
             },
             spacing: {
                 0: '0',

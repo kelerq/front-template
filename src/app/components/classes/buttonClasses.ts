@@ -11,6 +11,7 @@ export const buttonClasses = cva('rounded-md relative', {
             destructive:
                 'bg-destructive text-white shadow-primaryborder border-destructive hover:bg-destructive-hover hover:text-shadow hover:shadow-primary',
             monochrome: 'bg-white text-white border border-gray-400',
+            table: 'bg-transparent text-white border border-table-border',
         },
         modifier: {
             outline: 'bg-transparent border shadow-[0_0_0_1px_current] hover:bg-transparent',

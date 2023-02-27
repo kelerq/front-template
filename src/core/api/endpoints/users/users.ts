@@ -32,6 +32,31 @@ export const getUserPermissions = (userId: string, permissions: Array<Permission
         });
 };
 
+export const deleteUserPermission = (userId: string, permissionId: string): Promise<void> => {
+    const endpoint = `${usersEndpointURL}/${userId}/permissions/${permissionId}`;
+    return axios
+        .delete(endpoint)
+        .then(() => {
+            return;
+        })
+        .catch(err => {
+            throw Error(err);
+        });
+};
+
+export const addUserPermission = (userId: string, permissionId: string): Promise<void> => {
+    const endpoint = `${usersEndpointURL}/${userId}/permissions`;
+    return axios
+
+        .post(endpoint, { permissionId: permissionId })
+        .then(() => {
+            return;
+        })
+        .catch(err => {
+            throw Error(err);
+        });
+};
+
 export const getUserDetails = (userId: string): Promise<User> => {
     const endpoint = `${usersEndpointURL}/${userId}/details`;
     return axios
