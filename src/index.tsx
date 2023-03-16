@@ -3,10 +3,10 @@ import * as ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { Provider as ReduxProvider } from 'react-redux';
-import { App } from 'app/templates';
-import { store } from 'state/store';
+import { App } from 'templates/App';
+import { store } from 'shared-state/store';
 import { BrowserRouter } from 'react-router-dom';
-import { loginCachedUserThunk } from 'state/global/authorization/reducer';
+import { loginCachedUserThunk } from 'shared-state/global/authorization/reducer';
 
 store.dispatch(loginCachedUserThunk({}));
 

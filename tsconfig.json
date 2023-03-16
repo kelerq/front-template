@@ -22,5 +22,5 @@
         "forceConsistentCasingInFileNames": true
     },
     "exclude": ["node_modules", "scripts", "__tests__", "__mocks__"],
-    "include": ["src"]
+    "include": ["src", "src/modules/ui/features/buttons-examples/.tsx"]
 }
