@@ -14,7 +14,7 @@ const DEFAULT_COLOR = 'white';
 
 export function LoadingOverlay(props: LoadingOverlayProps): JSX.Element {
     return (
-        <div className="z-50 flex flex-col h-screen justify-center">
+        <div className="z-50 flex flex-col justify-center h-screen">
             {props.pending ? (
                 <div className="m-auto text-center">
                     <ClipLoader size={props.size || DEFAULT_SIZE} color={props.color || DEFAULT_COLOR} />

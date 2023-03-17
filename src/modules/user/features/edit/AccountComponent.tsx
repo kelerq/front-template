@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { TextInput } from 'shared-ui/molecules/TextInput';
 import { User } from 'core/domainModels/users/user';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,9 +8,10 @@ import { DispatchType } from 'shared-state/configureStore';
 import { updateUserThunk } from 'shared-state/global/users/reducer';
 import * as z from 'zod';
 import { FormSection } from 'shared-ui/atoms/FormSection';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
-import { Container } from 'shared-ui/atoms/Container';
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
+import TextInput from 'shared-ui/molecules/TextInput';
 
 interface AccountComponentProps {
     user: User;

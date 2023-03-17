@@ -2,19 +2,19 @@ import { GridReadyEvent, SelectionChangedEvent } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 
 import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
-import { Row } from 'shared-ui/atoms/Row';
 import { addUserPermission, deleteUserPermission } from 'core/api/endpoints/users/users';
 import { Permission } from 'core/domainModels/users/permission';
 import { User } from 'core/domainModels/users/user';
 import { UserPermission } from 'core/domainModels/users/userPermission';
 import React, { useCallback, useState } from 'react';
 
-import { TableToolbar } from 'shared-ui/atoms/TableToolbar';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
-import { Container } from 'shared-ui/atoms/Container';
 import { permissionsTableColumns, permissionsTableColumnsDefs } from './PermissionsTableColumnDefs';
 import { userPermissionsTableColumnsDefs, userPermissionsTableColumns } from './UserPermissionsTableColumnDefs';
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
+import Row from 'shared-ui/atoms/Row';
+import TableToolbar from 'shared-ui/atoms/TableToolbar';
 interface PermissionsComponentProps {
     user: User;
     userPermissions: Array<UserPermission>;
@@ -26,7 +26,6 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
     const [selectedPermissionNodes, setSelectedPermissionNodes] = useState<Array<Permission>>([]);
     const [selectedUserPermissionNodes, setSelectedUserPermissionNodes] = useState<Array<UserPermission>>([]);
     const [userPermissionsGridApi, setUserPermissionsGridApi] = useState<GridReadyEvent['api']>();
-
     const [deleteUserPermissionModal, setDeleteUserPermissionModal] = useState({
         isOpen: false,
         permissionId: '',
@@ -39,14 +38,25 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
         loading: false,
         bulk: false,
     });
+    const closeModal = (modalStateSetter: React.Dispatch<React.SetStateAction<any>>) => {
+        modalStateSetter({ isOpen: false, permissionId: '', loading: false, bulk: false });
+    };
+
     const deleteUserPermissionAction = (id: string) => {
         setDeleteUserPermissionModal({ isOpen: true, permissionId: id, loading: false, bulk: false });
     };
+
     const addUserPermissionAction = (id: string) => {
         setAddUserPermissionModal({ isOpen: true, permissionId: id, loading: false, bulk: false });
     };
+
+    const handleAction = async (action: () => Promise<void>, modalStateSetter: React.Dispatch<React.SetStateAction<any>>) => {
+        modalStateSetter((prevState: any) => ({ ...prevState, loading: true }));
+        await action();
+        closeModal(modalStateSetter);
+    };
+
     const submitAddUserPermission = async () => {
-        setAddUserPermissionModal({ ...addUserPermissionModal, loading: true });
         await addUserPermission(user.id, addUserPermissionModal.permissionId).then(() => {
             userPermissionsGridApi?.applyTransactionAsync({
                 add: [permissions.find(x => x.id === addUserPermissionModal.permissionId) as unknown as UserPermission],
@@ -54,12 +64,10 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
             permissionsGridApi?.applyTransactionAsync({
                 remove: [permissions.find(x => x.id === addUserPermissionModal.permissionId) as unknown as Permission],
             });
-            setAddUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
         });
     };
 
     const bulkAddUserPermission = async () => {
-        setAddUserPermissionModal({ ...addUserPermissionModal, loading: true });
         await Promise.all(
             selectedPermissionNodes?.map(async permission => {
                 await addUserPermission(user.id, permission.id).then(() => {
@@ -71,13 +79,10 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                     });
                 });
             }) as Array<Promise<void>>,
-        ).then(() => {
-            setAddUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
-        });
+        );
     };
 
     const submitDeleteUserPermission = async () => {
-        setDeleteUserPermissionModal({ ...deleteUserPermissionModal, loading: true });
         await deleteUserPermission(user.id, deleteUserPermissionModal.permissionId).then(() => {
             userPermissionsGridApi?.applyTransactionAsync({
                 remove: [permissions.find(x => x.id === deleteUserPermissionModal.permissionId) as unknown as UserPermission],
@@ -85,12 +90,10 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
             permissionsGridApi?.applyTransactionAsync({
                 add: [permissions.find(x => x.id === deleteUserPermissionModal.permissionId) as unknown as Permission],
             });
-            setDeleteUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
         });
     };
 
     const bulkDeleteUserPermission = async () => {
-        setDeleteUserPermissionModal({ ...deleteUserPermissionModal, loading: true });
         await Promise.all(
             selectedUserPermissionNodes?.map(async permission => {
                 await deleteUserPermission(user.id, permission.id).then(() => {
@@ -102,9 +105,7 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                     });
                 });
             }) as Array<Promise<void>>,
-        ).then(() => {
-            setDeleteUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
-        });
+        );
     };
 
     const permissionRowsSelectionChanged = (event: SelectionChangedEvent) => {
@@ -138,25 +139,27 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
         <Container className="ag-theme-alpine-dark">
             <ConfirmationModal
                 isOpen={deleteUserPermissionModal.isOpen}
-                onClose={() => {
-                    setDeleteUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
-                }}
-                onConfirm={() => {
-                    deleteUserPermissionModal.bulk ? bulkDeleteUserPermission() : submitDeleteUserPermission();
-                }}
+                onClose={() => closeModal(setDeleteUserPermissionModal)}
+                onConfirm={() =>
+                    handleAction(
+                        deleteUserPermissionModal.bulk ? bulkDeleteUserPermission : submitDeleteUserPermission,
+                        setDeleteUserPermissionModal,
+                    )
+                }
                 title="Remove user permission"
                 loading={deleteUserPermissionModal.loading}
             >
-                Are u sure you want to remove this permission?
+                Are you sure you want to remove this permission?
             </ConfirmationModal>
             <ConfirmationModal
                 isOpen={addUserPermissionModal.isOpen}
-                onClose={() => {
-                    setAddUserPermissionModal({ isOpen: false, permissionId: '', loading: false, bulk: false });
-                }}
-                onConfirm={() => {
-                    addUserPermissionModal.bulk ? bulkAddUserPermission() : submitAddUserPermission();
-                }}
+                onClose={() => closeModal(setAddUserPermissionModal)}
+                onConfirm={() =>
+                    handleAction(
+                        addUserPermissionModal.bulk ? bulkAddUserPermission : submitAddUserPermission,
+                        setAddUserPermissionModal,
+                    )
+                }
                 title="Add user permission"
                 loading={addUserPermissionModal.loading}
             >
@@ -166,7 +169,6 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                 <Col className="w-1/2">
                     <TableToolbar>
                         <Button
-                            variant="table"
                             size="medium"
                             modifier="outline"
                             onClick={() => {
@@ -189,7 +191,6 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                 <Col className="w-1/2">
                     <TableToolbar>
                         <Button
-                            variant="table"
                             size="medium"
                             modifier="outline"
                             onClick={() => {

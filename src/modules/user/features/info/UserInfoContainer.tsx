@@ -3,9 +3,9 @@ import { UserIcon } from 'assets/icons/icons';
 import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
 import { useUser } from 'shared-hooks/useUser';
 import React from 'react';
-import { Container } from 'shared-ui/atoms/Container';
+import Container from 'shared-ui/atoms/Container';
 
-export const UserInfoContainer = () => {
+const UserInfoContainer = () => {
     const { id } = useParams();
     const { user, isLoading, error } = useUser(id ? id : '');
 
@@ -53,3 +53,5 @@ export const UserInfoContainer = () => {
         </>
     );
 };
+
+export default UserInfoContainer;

@@ -6,10 +6,14 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ApplicationState } from 'shared-state/applicationState';
 import { DispatchType } from 'shared-state/configureStore';
 import { activationThunk } from 'shared-state/global/authorization/reducer';
-import { Container } from 'shared-ui/atoms/Container';
 import { Hero, HeroSubtitle } from 'shared-ui/atoms/Hero';
+import Container from 'shared-ui/atoms/Container';
+interface ActivationParams {
+    activationToken: string;
+    email: string;
+}
 
-export const SignupActivationContainer = () => {
+export const SignupActivationContainer: React.FC = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const dispatch = useDispatch<DispatchType>();
@@ -17,15 +21,17 @@ export const SignupActivationContainer = () => {
     const activationError = useSelector((state: ApplicationState) => state.authorization.activationError);
     const token = searchParams.get('token');
     const email = searchParams.get('email');
+
     useEffect(() => {
         if (token && email) {
-            dispatch(activationThunk({ activationToken: token, email: email })).then(response => {
+            const params: ActivationParams = { activationToken: token, email: email };
+            dispatch(activationThunk(params)).then(response => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     navigate('/im/login');
                 }
             });
         }
-    }, [token, email]);
+    }, [dispatch, navigate, token, email]);
 
     return (
         <Container>

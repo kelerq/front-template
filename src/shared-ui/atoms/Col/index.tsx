@@ -7,11 +7,15 @@ interface ColProps {
     className?: string;
 }
 
-export const Col = ({ children, title, className }: ColProps) => {
+const Col: React.FC<ColProps> = ({ children, title, className }) => {
+    const containerClasses = classNames('flex flex-col space-y-3 p-8', className);
+
     return (
-        <div className={classNames('flex flex-col space-y-3 p-8', className)}>
-            {title ? <h1 className="mb-5 text-lg font-bold border-b">{title}</h1> : <></>}
+        <div className={containerClasses}>
+            {title && <h1 className="mb-5 text-lg font-bold border-b">{title}</h1>}
             {children}
         </div>
     );
 };
+
+export default Col;

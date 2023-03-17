@@ -1,20 +1,21 @@
-import { TextInput } from 'shared-ui/molecules/TextInput';
 import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
 import { z } from 'zod';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
-import { Container } from 'shared-ui/atoms/Container';
+
 import { FormSection, FormSectionHeader } from 'shared-ui/atoms/FormSection';
 import { signupThunk } from 'shared-state/global/authorization/reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { DispatchType } from 'shared-state/configureStore';
 import { useNavigate } from 'react-router-dom';
 import { ApplicationState } from 'shared-state/applicationState';
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
+import TextInput from 'shared-ui/molecules/TextInput';
 
-export function SignupFormContainer(): JSX.Element {
+export const SignupFormContainer: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<DispatchType>();
     const signupPending = useSelector((state: ApplicationState) => state.authorization.signupPending);
@@ -97,4 +98,4 @@ export function SignupFormContainer(): JSX.Element {
             </Col>
         </Container>
     );
-}
+};

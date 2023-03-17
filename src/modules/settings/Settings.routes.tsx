@@ -1,8 +1,8 @@
 import { TabsNavigator } from 'shared-ui/organisms/TabsNavigator';
 import React, { Suspense } from 'react';
-import { AccountContainer } from 'modules/settings/features/account';
-import { PermissionsContainer } from './features/permissions';
 import { UsersContainer } from './features/users/UsersContainer';
+import PermissionsContainer from './features/permissions/PermissionsContainer';
+import { AccountContainer } from './features/account/AccountContainer';
 
 export function SettingsRoutes(): JSX.Element {
     const tabs = [

@@ -1,11 +1,10 @@
 import { User } from 'core/domainModels/users/user';
+import { UserApiModel } from '../models/UserApiModel';
 
-export const mapApiModelToUser = (apiModel): User => {
-    return {
-        id: apiModel.id,
-        email: apiModel.email,
-        isActive: apiModel.active,
-        firstName: apiModel.firstName,
-        lastName: apiModel.lastName,
-    };
-};
+export const mapApiModelToUser = ({ id, email, active, firstName, lastName }: UserApiModel): User => ({
+    id,
+    email,
+    isActive: active,
+    firstName,
+    lastName,
+});

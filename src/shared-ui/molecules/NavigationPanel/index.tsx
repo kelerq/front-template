@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Row from 'shared-ui/atoms/Row';
+import TabItem from 'shared-ui/atoms/TabItem';
 import { TabView } from '../../organisms/TabsNavigator/models/tabView';
-import { TabItem } from '../../atoms/TabItem';
-import { Row } from 'shared-ui/atoms/Row';
 
 interface NavigationPanelProps {
     tabs: Array<TabView>;
@@ -13,36 +13,34 @@ interface NavigationPanelProps {
     setActiveTab: (newTabIndex: number) => void;
 }
 
-export const NavigationPanel = (props: NavigationPanelProps) => {
-    return (
-        <Row className="text-sm text-center text-white border-b border-white">
-            <nav className="">
-                <ul className="flex flex-wrap -mb-px">
-                    {props.tabs.map((tab, index) => (
-                        <>
-                            {props.routing ? (
-                                <Link to={`${tab.path}`}>
-                                    <TabItem
-                                        name={tab.name}
-                                        index={index}
-                                        path={tab.path}
-                                        activeTab={props.activeTab}
-                                        setActiveTab={props.setActiveTab}
-                                    />
-                                </Link>
-                            ) : (
+export const NavigationPanel = ({ tabs, path, disabled, routing = true, activeTab, setActiveTab }: NavigationPanelProps) => (
+    <Row className="text-sm text-center text-white border-b border-white">
+        <nav>
+            <ul className="flex flex-wrap -mb-px">
+                {tabs.map((tab, index) => (
+                    <React.Fragment key={index}>
+                        {routing ? (
+                            <Link to={`${tab.path}`}>
                                 <TabItem
                                     name={tab.name}
                                     index={index}
-                                    path={tab.path}
-                                    activeTab={props.activeTab}
-                                    setActiveTab={props.setActiveTab}
+                                    path={path}
+                                    activeTab={activeTab}
+                                    setActiveTab={setActiveTab}
                                 />
-                            )}
-                        </>
-                    ))}
-                </ul>
-            </nav>
-        </Row>
-    );
-};
+                            </Link>
+                        ) : (
+                            <TabItem
+                                name={tab.name}
+                                index={index}
+                                path={path}
+                                activeTab={activeTab}
+                                setActiveTab={setActiveTab}
+                            />
+                        )}
+                    </React.Fragment>
+                ))}
+            </ul>
+        </nav>
+    </Row>
+);

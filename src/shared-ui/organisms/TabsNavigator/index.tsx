@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Container } from 'shared-ui/atoms/Container';
+import Container from 'shared-ui/atoms/Container';
 import { NavigationPanel } from '../../molecules/NavigationPanel';
 import { TabView } from './models/tabView';
 
@@ -14,27 +14,34 @@ interface TabNavigatorProps {
     tabClicked?: (tabIndex: number | undefined) => void;
 }
 
-export const TabsNavigator = (props: TabNavigatorProps) => {
-    const [activeTab, setActiveTab] = useState(props.initialTab);
+export const TabsNavigator: React.FC<TabNavigatorProps> = ({
+    tabs,
+    path,
+    routing = false,
+    initialTab = 0,
+    tabChanged,
+    tabClicked,
+}) => {
+    const [activeTab, setActiveTab] = useState(initialTab);
+
+    const renderContent = () => {
+        if (routing) {
+            return (
+                <Routes>
+                    {tabs.map(tab => (
+                        <Route path={tab.path} element={tab.container} />
+                    ))}
+                </Routes>
+            );
+        }
+
+        return tabs[activeTab].container;
+    };
 
     return (
         <Container>
-            <NavigationPanel
-                tabs={props.tabs}
-                path={props.path}
-                routing={props.routing}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-            />
-            {props.routing ? (
-                <Routes>
-                    {props.tabs.map((tab, index) => (
-                        <Route path={`${tab.path}`} element={tab.container} />
-                    ))}
-                </Routes>
-            ) : (
-                props.tabs[activeTab || props.initialTab || 0].container
-            )}
+            <NavigationPanel tabs={tabs} path={path} routing={routing} activeTab={activeTab} setActiveTab={setActiveTab} />
+            {renderContent()}
         </Container>
     );
 };

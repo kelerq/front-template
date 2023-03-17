@@ -13,36 +13,22 @@ export const useUser = (id: string) => {
     const [permissions, setPermissions] = useState<Array<Permission>>();
 
     useEffect(() => {
-        const fetchPermissions = async () => {
+        const fetchData = async () => {
             setIsLoading(true);
             try {
-                const permissions = await getPermissions();
-                const userPermissions = await getUserPermissions(id, permissions as Array<Permission>);
-                setUserPermissions(userPermissions as Array<UserPermission>);
-                setPermissions(permissions as Array<Permission>);
-            } catch (err) {
-                setError(err as string);
-            }
-            setIsLoading(false);
-        };
-        fetchPermissions();
-    }, [id]);
+                const [permissionsData, userDetails] = await Promise.all([getPermissions(), getUserDetails(id)]);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            setIsLoading(true);
-            try {
-                const user = await getUserDetails(id);
-                setUser({
-                    ...user,
-                    id: id,
-                } as User);
+                setUser({ ...userDetails, id } as User);
+                setPermissions(permissionsData as Array<Permission>);
+
+                const userPermissionsData = await getUserPermissions(id, permissionsData as Array<Permission>);
+                setUserPermissions(userPermissionsData as Array<UserPermission>);
             } catch (err) {
                 setError(err as string);
             }
             setIsLoading(false);
         };
-        fetchUser();
+        fetchData();
     }, [id]);
 
     return { user, userPermissions, isLoading, error, permissions };

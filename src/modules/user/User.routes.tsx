@@ -1,8 +1,8 @@
 import { Routes } from 'react-router-dom';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { UserInfoContainer } from './features/info/UserInfoContainer';
 import { UserEditContainer } from './features/edit/UserEditContainer';
+import UserInfoContainer from './features/info/UserInfoContainer';
 
 export function UserRoutes(): JSX.Element {
     return (

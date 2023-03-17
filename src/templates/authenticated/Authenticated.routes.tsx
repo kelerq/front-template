@@ -10,10 +10,10 @@ export const AuthenticatedRoutes = () => {
         <Routes>
             <Route path="/" element={<HomeRoutes />} />
             <Route path="/im/home" element={<HomeRoutes />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/im/ui/*" element={<UiRoutes />} />
             <Route path="/im/settings/*" element={<SettingsRoutes />} />
             <Route path="/im/user/*" element={<UserRoutes />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );
 };

@@ -3,7 +3,7 @@ import { ColDef } from 'ag-grid-community';
 import { fieldName } from 'core/helpers/aggrid';
 import { MinusIcon } from 'assets/icons/icons';
 import { UserPermission } from 'core/domainModels/users/userPermission';
-import { Button } from 'shared-ui/atoms/Button';
+import Button from 'shared-ui/atoms/Button';
 
 export const userPermissionsTableColumnsDefs: ColDef = {
     sortable: true,

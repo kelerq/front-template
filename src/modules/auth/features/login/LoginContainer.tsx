@@ -2,12 +2,12 @@ import { useDispatch } from 'react-redux';
 import { DispatchType } from 'shared-state/configureStore';
 import { loginThunk } from 'shared-state/global/authorization/reducer';
 import React, { useState } from 'react';
-import { redirect } from 'react-router';
-import { Container } from 'shared-ui/atoms/Container';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
+import { redirect } from 'react-router-dom';
 import { FormSection, FormSectionHeader } from 'shared-ui/atoms/FormSection';
-import { TextInput } from 'shared-ui/molecules/TextInput';
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
+import TextInput from 'shared-ui/molecules/TextInput';
 
 export function LoginContainer(): JSX.Element {
     const dispatch = useDispatch<DispatchType>();

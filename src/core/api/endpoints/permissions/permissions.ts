@@ -5,17 +5,17 @@ import { mapApiModelToPermission } from './mappings/mapApiModelToPermission';
 
 export const permissionsEndpointURL = `${config.importercalcAPI.url}/api/auth/permissions`;
 
-export const getPermissions = (): Promise<Array<Permission>> => {
-    return axios
-        .get(permissionsEndpointURL)
-        .then(response => {
-            const permissions = response.data.data.map(permission => mapApiModelToPermission(permission));
-            if (!permissions) {
-                throw new Error('empty response');
-            }
-            return permissions as Array<Permission>;
-        })
-        .catch(err => {
-            throw Error(err);
-        });
+export const getPermissions = async (): Promise<Array<Permission>> => {
+    try {
+        const response = await axios.get(permissionsEndpointURL);
+        const permissions = response.data.data.map(permission => mapApiModelToPermission(permission));
+
+        if (!permissions) {
+            throw new Error('empty response');
+        }
+
+        return permissions as Array<Permission>;
+    } catch (err) {
+        throw Error('Error while fetching permissions');
+    }
 };

@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import React from 'react';
 
-const labelClasses = cva('relative', {
+const labelClassesProvider = cva('relative', {
     variants: {
         variant: {
             input: 'bg-transparent text-white-dark',
@@ -24,17 +24,21 @@ const labelClasses = cva('relative', {
     },
 });
 
-interface LabelProps extends VariantProps<typeof labelClasses> {
+interface LabelProps extends VariantProps<typeof labelClassesProvider> {
     id?: string;
     content?: string | JSX.Element;
     children: React.ReactNode;
 }
 
-export const Label = ({ content, children }: LabelProps) => {
+const Label: React.FC<LabelProps> = ({ content, children, ...variantProps }) => {
+    const labelClasses = labelClassesProvider(variantProps);
+
     return (
         <>
-            {content ? <label className={classNames(labelClasses())}>{content}</label> : <></>}
+            {content ? <label className={classNames(labelClasses)}>{content}</label> : <></>}
             {children}
         </>
     );
 };
+
+export default Label;

@@ -9,13 +9,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DispatchType } from 'shared-state/configureStore';
 import { User } from 'core/domainModels/users/user';
 import { updateUserThunk } from 'shared-state/global/users/reducer';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
-import { Container } from 'shared-ui/atoms/Container';
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
 import { FormSection } from 'shared-ui/atoms/FormSection';
-import { TextInput } from 'shared-ui/molecules/TextInput';
+import TextInput from 'shared-ui/molecules/TextInput';
 
-export function AccountDashboard(): JSX.Element {
+const FormSchema = z.object({
+    email: z.string().email(),
+    firstName: z.string().min(2),
+    lastName: z.string().min(2),
+});
+
+type FormSchemaType = z.infer<typeof FormSchema>;
+
+export function AccountContainer(): JSX.Element {
     const user = useSelector((state: ApplicationState) => state.users.authenticatedUser);
     const dispatch = useDispatch<DispatchType>();
 
@@ -28,14 +36,6 @@ export function AccountDashboard(): JSX.Element {
             }),
         );
     };
-
-    const FormSchema = z.object({
-        email: z.string().email(),
-        firstName: z.string().min(2),
-        lastName: z.string().min(2),
-    });
-
-    type FormSchemaType = z.infer<typeof FormSchema>;
 
     const {
         register,

@@ -7,7 +7,7 @@
         --navigation-height: 5rem;
     }
     html {
-        @apply bg-primary-gradient h-full font-sans text-white;
+        @apply h-full font-sans text-base-content bg-base-200;
         font-size: 62.5%;
     }
 }

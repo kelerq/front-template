@@ -6,16 +6,19 @@ import { AuthenticatedTemplate } from './authenticated/AuthenticatedTemplate';
 import { AuthorizationTemplate } from './authorization/AuthorizationTemplate';
 
 export function App(): JSX.Element {
-    const authenticated = useSelector((state: ApplicationState) => state.authorization.authenticated);
-    const cachedUserLoginPending = useSelector((state: ApplicationState) => state.authorization.cachedUserLoginPending);
-    const loginPending = useSelector((state: ApplicationState) => state.authorization.loginPending);
-    const fetchAuthenticatedUserPending = useSelector((state: ApplicationState) => state.users.fetchAuthenticatedUserPending);
+    const {
+        authorization: { authenticated, cachedUserLoginPending, loginPending },
+        users: { fetchAuthenticatedUserPending },
+    } = useSelector((state: ApplicationState) => state);
+
+    const showLoadingOverlay = cachedUserLoginPending || loginPending || fetchAuthenticatedUserPending;
+    const showAuthorizationTemplate = !authenticated && !cachedUserLoginPending && !loginPending;
 
     return (
         <>
-            {(cachedUserLoginPending || loginPending || fetchAuthenticatedUserPending) && <LoadingOverlay pending />}
+            {showLoadingOverlay && <LoadingOverlay pending />}
 
-            {!authenticated && !cachedUserLoginPending && !loginPending && <AuthorizationTemplate />}
+            {showAuthorizationTemplate && <AuthorizationTemplate />}
 
             {authenticated && <AuthenticatedTemplate />}
         </>

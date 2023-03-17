@@ -1,6 +1,12 @@
-import React from 'react';
 import classNames from 'classnames';
 import { cva, VariantProps } from 'class-variance-authority';
+import { FC } from 'react';
+import React from 'react';
+
+interface Props extends VariantProps<typeof footerClasses> {
+    children: React.ReactNode;
+    className?: string;
+}
 
 const footerClasses = cva('', {
     variants: {
@@ -16,25 +22,14 @@ const footerClasses = cva('', {
     },
 });
 
-interface ModalFooterProps extends VariantProps<typeof footerClasses> {
-    children: React.ReactNode;
-    className?: string;
-}
-
-export const ModalFooter = ({ children, className, size }: ModalFooterProps) => {
-    return (
-        <>
-            <div
-                className={classNames(
-                    'flex flex-row justify-end border-t border-white-a08',
-                    className,
-                    footerClasses({
-                        size,
-                    }),
-                )}
-            >
-                {children}
-            </div>
-        </>
+const ModalFooter: FC<Props> = ({ children, className, size = 'tiny' }) => {
+    const footerClassNames = classNames(
+        'flex flex-row justify-end border-t border-white-a08',
+        className,
+        footerClasses({ size }),
     );
+
+    return <div className={footerClassNames}>{children}</div>;
 };
+
+export default ModalFooter;

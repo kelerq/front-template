@@ -1,6 +1,6 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
-import React from 'react';
+import React, { useState } from 'react';
 
 const modalClasses = cva('', {
     variants: {
@@ -29,8 +29,8 @@ interface ModalProps extends VariantProps<typeof modalClasses> {
     onRequestClose: () => void;
 }
 
-export const Modal = ({ children, isOpen, onRequestClose, size, color }: ModalProps): JSX.Element => {
-    const [isClosing, setIsClosing] = React.useState(false);
+export const Modal: React.FC<ModalProps> = ({ children, isOpen, onRequestClose, size, color }) => {
+    const [isClosing, setIsClosing] = useState(false);
 
     const close = (): void => {
         setIsClosing(true);

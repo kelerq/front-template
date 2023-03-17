@@ -4,7 +4,7 @@ import { User } from 'core/domainModels/users/user';
 import { fieldName } from 'core/helpers/aggrid';
 import { ActiveIcon, EditIcon, LockIcon, NonActiveIcon, UserIcon } from 'assets/icons/icons';
 import { NavigateFunction } from 'react-router-dom';
-import { Button } from 'shared-ui/atoms/Button';
+import Button from 'shared-ui/atoms/Button';
 
 export const usersTableColumnsDefs: ColDef = {
     sortable: true,

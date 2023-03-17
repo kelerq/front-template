@@ -59,5 +59,3 @@ class ServerSideDataUrlBuilder {
 export const buildServerSideDataUrl = (url: string) => {
     return new ServerSideDataUrlBuilder(url);
 };
-
-// PATTERN BUILDER

@@ -1,38 +1,25 @@
 import classNames from 'classnames';
-import React from 'react';
-// interface FormSectionProps {
-//     header?: string;
-//     loading?: boolean;
-//     className?: string;
-//     formClassName?: string;
-//     icon?: JSX.Element;
-//     theme?: 'Card';
-//     onRefresh?: () => void;
-// }
+import React, { FC } from 'react';
 
 interface FormSectionProps {
     children: React.ReactNode;
     onSubmit?: () => void;
     className?: string;
 }
-interface FormSectionElementProps {
-    children: React.ReactNode;
-    className?: string;
-}
-export const FormSectionHeader = ({ children, className }: FormSectionElementProps) => {
-    return <h3 className={classNames(className, 'text-xl')}>{children}</h3>;
-};
 
-export function FormSection({ children, onSubmit, className }: FormSectionProps): JSX.Element {
+export const FormSection: FC<FormSectionProps> = ({ children, onSubmit, className }) => {
     return (
-        <form onSubmit={onSubmit} className={className}>
+        <form onSubmit={onSubmit} className={classNames(className)}>
             {children}
         </form>
     );
+};
+
+interface FormSectionHeaderProps {
+    children: React.ReactNode;
+    className?: string;
 }
 
-// <div className={'tachoformSectionHeader'}>
-//     {props.header ? <Header /> : <></>}{' '}
-//     {props.loading && <div className="loader">{/* <ClipLoader color="accent" type="Beat" size={5} /> */}</div>}
-//     {props.icon}
-// </div>
+export const FormSectionHeader: FC<FormSectionHeaderProps> = ({ children, className }) => {
+    return <h3 className={classNames(className, 'text-xl')}>{children}</h3>;
+};

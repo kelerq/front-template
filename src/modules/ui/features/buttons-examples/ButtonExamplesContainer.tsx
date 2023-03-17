@@ -1,25 +1,30 @@
-import { Row } from 'shared-ui/atoms/Row';
 import React from 'react';
-import { Button } from 'shared-ui/atoms/Button';
-import { Col } from 'shared-ui/atoms/Col';
-import { Container } from 'shared-ui/atoms/Container';
+
+import Button from 'shared-ui/atoms/Button';
+import Col from 'shared-ui/atoms/Col';
+import Container from 'shared-ui/atoms/Container';
+import Row from 'shared-ui/atoms/Row';
 
 export function ButtonExamplesContainer(): JSX.Element {
     return (
         <Container>
             <Row>
                 <Col title="Regular" className="items-start">
-                    <Button>Action</Button>
+                    <Button size="tiny">Action (tiny) </Button>
                     <Button size="small">Action (small)</Button>
-                    <Button size="medium">Action (medium)</Button>
+                    <Button size="medium">Action (medium) </Button>
                     <Button size="large">Action (large)</Button>
-                    <Button modifier="outline">Action (outline)</Button>
+                    <Button variant="default" modifier="outline">
+                        Action (outline)
+                    </Button>
                     <Button modifier="plain">Action (plain)</Button>
                     <Button disabled>Action (disabled)</Button>
                     <Button loading>Action (loading)</Button>
                 </Col>
                 <Col title="Primary" className="items-start">
-                    <Button variant="primary">Action</Button>
+                    <Button variant="primary" size="tiny">
+                        Action (tiny)
+                    </Button>
                     <Button variant="primary" size="small">
                         Action (small)
                     </Button>
@@ -42,57 +47,83 @@ export function ButtonExamplesContainer(): JSX.Element {
                         Action (loading)
                     </Button>
                 </Col>
-                <Col title="Monochrome" className="items-start">
-                    <Button variant="monochrome">Action</Button>
-                    <Button variant="monochrome" size="small">
+                <Col title="Secondary" className="items-start">
+                    <Button variant="secondary" size="tiny">
+                        Action (tiny)
+                    </Button>
+                    <Button variant="secondary" size="small">
                         Action (small)
                     </Button>
-                    <Button variant="monochrome" size="medium">
+                    <Button variant="secondary" size="medium">
                         Action (medium)
                     </Button>
-                    <Button variant="monochrome" size="large">
+                    <Button variant="secondary" size="large">
                         Action (large)
                     </Button>
-                    <Button variant="monochrome" modifier="outline">
+                    <Button variant="secondary" modifier="outline">
                         Action (outline)
                     </Button>
-                    <Button variant="monochrome" modifier="plain">
+                    <Button variant="secondary" modifier="plain">
                         Action (plain)
                     </Button>
-                    <Button variant="monochrome" disabled>
+                    <Button variant="secondary" disabled>
                         Action (disabled)
                     </Button>
-                    <Button variant="monochrome" loading>
+                    <Button variant="secondary" loading>
                         Action (loading)
                     </Button>
                 </Col>
-                <Col title="Destructive" className="items-start">
-                    <Button variant="destructive">Action</Button>
-                    <Button variant="destructive" size="small">
+                <Col title="Accent" className="items-start">
+                    <Button variant="accent" size="tiny">
+                        Action (tiny)
+                    </Button>
+                    <Button variant="accent" size="small">
                         Action (small)
                     </Button>
-                    <Button variant="destructive" size="medium">
+                    <Button variant="accent" size="medium">
                         Action (medium)
                     </Button>
-                    <Button variant="destructive" size="large">
+                    <Button variant="accent" size="large">
                         Action (large)
                     </Button>
-                    <Button variant="destructive" modifier="outline">
+                    <Button variant="accent" modifier="outline">
                         Action (outline)
                     </Button>
-                    <Button variant="destructive" modifier="plain">
+                    <Button variant="accent" modifier="plain">
                         Action (plain)
                     </Button>
-                    <Button variant="destructive" disabled>
+                    <Button variant="accent" disabled>
                         Action (disabled)
                     </Button>
-                    <Button variant="destructive" loading>
+                    <Button variant="accent" loading>
                         Action (loading)
                     </Button>
                 </Col>
-                <Col title="Other" className="items-start">
-                    <Button>Action not full width</Button>
-                    <Button fullWidth>Action full width</Button>
+                <Col title="Ghost" className="items-start">
+                    <Button variant="ghost" size="tiny">
+                        Action (tiny)
+                    </Button>
+                    <Button variant="ghost" size="small">
+                        Action (small)
+                    </Button>
+                    <Button variant="ghost" size="medium">
+                        Action (medium)
+                    </Button>
+                    <Button variant="ghost" size="large">
+                        Action (large)
+                    </Button>
+                    <Button variant="ghost" modifier="outline">
+                        Action (outline)
+                    </Button>
+                    <Button variant="ghost" modifier="plain">
+                        Action (plain)
+                    </Button>
+                    <Button variant="ghost" disabled>
+                        Action (disabled)
+                    </Button>
+                    <Button variant="ghost" loading>
+                        Action (loading)
+                    </Button>
                 </Col>
             </Row>
         </Container>

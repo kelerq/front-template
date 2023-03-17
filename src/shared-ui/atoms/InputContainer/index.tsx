@@ -7,6 +7,12 @@ export interface InputContainerProps {
     className?: string;
 }
 
-export const InputContainer = (props: InputContainerProps) => {
-    return <div className={(classNames(props.className), 'flex flex-col items-start')}>{props.children}</div>;
+export const InputContainer: React.FC<InputContainerProps> = ({ children, onKeyDown, className }) => {
+    const containerClasses = classNames(className, 'flex flex-col items-start');
+
+    return (
+        <div className={containerClasses} onKeyDown={onKeyDown}>
+            {children}
+        </div>
+    );
 };

@@ -1,6 +1,15 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC } from 'react';
 
-export const Container = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-    return <div className={classNames('max-w-[192rem] mx-auto px-8', className)}>{children}</div>;
+interface ContainerProps {
+    children: React.ReactNode;
+    className?: string;
+}
+
+const Container: FC<ContainerProps> = ({ children, className }) => {
+    const containerClasses = classNames('max-w-[192rem] mx-auto px-8', className);
+
+    return <div className={containerClasses}>{children}</div>;
 };
+
+export default Container;

@@ -8,15 +8,15 @@ import { buildServerSideDataUrl } from 'core/helpers/dataFetch';
 import { blockUser, getUsers, usersEndpointURL } from 'core/api/endpoints/users/users';
 import { GridApi } from 'ag-grid-enterprise';
 import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
-import { TextInput } from 'shared-ui/molecules/TextInput';
 import { useNavigate } from 'react-router-dom';
-import { Container } from 'shared-ui/atoms/Container';
 import { usersTableColumns, usersTableColumnsDefs } from './UsersTableColumnDefs';
+import Container from 'shared-ui/atoms/Container';
+import TextInput from 'shared-ui/molecules/TextInput';
 
 export const UsersContainer = () => {
     const navigate = useNavigate();
     const [gridApi, setGridApi] = useState<GridApi>();
-    const [blockUserModal, setblockUserModal] = useState({
+    const [blockUserModal, setBlockUserModal] = useState({
         isOpen: false,
         id: '',
         reason: '',
@@ -24,58 +24,61 @@ export const UsersContainer = () => {
     const urlBuilder = buildServerSideDataUrl(`${usersEndpointURL}`);
 
     const blockUserAction = (id: string) => {
-        setblockUserModal({ isOpen: true, id, reason: '' });
+        setBlockUserModal({ isOpen: true, id, reason: '' });
     };
+
+    const fetchUsers = params => {
+        const { startRow, endRow, filterModel, sortModel } = params.request;
+        urlBuilder.clear();
+        urlBuilder.addPagination(startRow, endRow);
+        urlBuilder.addSorting(sortModel);
+        urlBuilder.addFiltering(filterModel);
+        const url = urlBuilder.build();
+
+        getUsers(url)
+            .then(response => {
+                params.successCallback(response, response.length);
+            })
+            .catch(error => {
+                console.log(error);
+                params.failCallback();
+            });
+    };
+
     const datasource = {
-        getRows(params) {
-            console.log('GET ROWS? ');
-            const { startRow, endRow, filterModel, sortModel } = params.request;
-            urlBuilder.clear();
-            console.log('startRow: ', startRow, 'endRow: ', endRow);
-            urlBuilder.addPagination(startRow, endRow);
-            urlBuilder.addSorting(sortModel);
-            urlBuilder.addFiltering(filterModel);
-            const url = urlBuilder.build();
-            console.log(url);
-            getUsers(url)
-                .then(response => {
-                    params.successCallback(response, response.length);
-                    console.log(response);
-                })
-                .catch(error => {
-                    console.log(error);
-                    params.failCallback();
-                });
-        },
+        getRows: fetchUsers,
     };
 
     const onGridReady = event => {
         setGridApi(event.api);
-
         event.api.setServerSideDatasource(datasource);
+    };
+
+    const closeModal = () => {
+        setBlockUserModal({ isOpen: false, id: '', reason: '' });
+    };
+
+    const confirmBlockUser = () => {
+        blockUser(blockUserModal.id, blockUserModal.reason).then(() => {
+            gridApi?.refreshServerSide();
+            closeModal();
+        });
+    };
+
+    const onReasonChange = value => {
+        setBlockUserModal({ ...blockUserModal, reason: value });
     };
 
     return (
         <Container className="flex flex-col h-full ag-theme-alpine-dark">
             <ConfirmationModal
                 isOpen={blockUserModal.isOpen}
-                onClose={() => {
-                    setblockUserModal({ isOpen: false, id: '', reason: '' });
-                }}
-                onConfirm={() => {
-                    blockUser(blockUserModal.id, blockUserModal.reason).then(() => {
-                        gridApi?.refreshServerSide();
-                        setblockUserModal({ isOpen: false, id: '', reason: '' });
-                    });
-                }}
+                onClose={closeModal}
+                onConfirm={confirmBlockUser}
                 title="Block user"
             >
                 Are you sure you want to block this user?
-                <TextInput
-                    label="Reason"
-                    value={blockUserModal.reason}
-                    onChange={value => setblockUserModal({ ...blockUserModal, reason: value })}
-                />
+                <TextInput label="Reason" value={blockUserModal.reason} onChange={onReasonChange} />
             </ConfirmationModal>
             <AgGridReact
                 className="mt-4"

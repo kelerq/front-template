@@ -3,11 +3,11 @@ import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
 import { useUser } from 'shared-hooks/useUser';
 import React from 'react';
 import { TabsNavigator } from 'shared-ui/organisms/TabsNavigator';
-import { Row } from 'shared-ui/atoms/Row';
-import { Container } from 'shared-ui/atoms/Container';
 import { AccountComponent } from './AccountComponent';
 import { PermissionsComponent } from './PermissionsComponent';
-import { OtherComponent } from './OtherComponent';
+import Container from 'shared-ui/atoms/Container';
+import Row from 'shared-ui/atoms/Row';
+import OtherComponent from './OtherComponent';
 
 export const UserEditContainer = () => {
     const { id } = useParams();

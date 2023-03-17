@@ -1,9 +1,11 @@
 import React from 'react';
 
-export const OtherComponent = () => {
+const OtherComponent = () => {
     return (
         <div>
             <h1>OtherComponent</h1>
         </div>
     );
 };
+
+export default OtherComponent;

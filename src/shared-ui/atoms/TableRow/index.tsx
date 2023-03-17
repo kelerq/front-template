@@ -1,14 +1,17 @@
+import { ReactNode } from 'react';
 import React from 'react';
 
-interface TableRowProps {
-    children: React.ReactNode;
-    key: string;
+interface Props {
+    children: ReactNode;
+    id: string;
 }
 
-export const TableRow = (props: TableRowProps) => {
+const TableRow = ({ children, id }: Props) => {
     return (
-        <tr key={props.key} className="h-16 border border-gray-100 rounded focus:outline-none">
-            {props.children}
+        <tr key={id} className="h-16 border border-gray-100 rounded focus:outline-none">
+            {children}
         </tr>
     );
 };
+
+export default TableRow;

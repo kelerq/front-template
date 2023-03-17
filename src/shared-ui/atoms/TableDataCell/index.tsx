@@ -1,14 +1,17 @@
+import { ReactNode } from 'react';
 import React from 'react';
 
-interface TableDataCellProps {
-    children: React.ReactNode;
-    key: string;
+interface Props {
+    children: ReactNode;
+    id: string;
 }
 
-export const TableDataCell = (props: TableDataCellProps) => {
+const TableDataCell = ({ children, id }: Props) => {
     return (
-        <td key={props.key} className="px-6 py-4  whitespace-nowrap">
-            {props.children}
+        <td key={id} className="px-6 py-4 whitespace-nowrap">
+            {children}
         </td>
     );
 };
+
+export default TableDataCell;

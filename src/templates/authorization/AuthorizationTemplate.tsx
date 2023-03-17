@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { LandingHeader } from 'shared-ui/organisms/LandingHeader';
+import LandingHeader from 'shared-ui/organisms/LandingHeader';
 import { AuthorizationRoutes } from './Authorization.routes';
 
 export const AuthorizationTemplate: FC = () => {

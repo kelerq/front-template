@@ -1,11 +1,15 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { FC } from 'react';
 
-interface RowProps {
+interface Props {
     children: React.ReactNode;
     className?: string;
 }
 
-export const Row = ({ children, className }: RowProps) => {
-    return <div className={classNames('flex flex-row', className)}>{children}</div>;
+const Row: FC<Props> = ({ children, className }) => {
+    const rowClasses = classNames('flex flex-row', className);
+
+    return <div className={rowClasses}>{children}</div>;
 };
+
+export default Row;

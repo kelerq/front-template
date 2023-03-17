@@ -2,7 +2,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import React from 'react';
 
-const bodyClasses = cva('', {
+const bodyClassesProvider = cva('', {
     variants: {
         size: {
             tiny: 'text-xs p-2',
@@ -10,21 +10,25 @@ const bodyClasses = cva('', {
             medium: 'text-md p-4',
             large: 'text-lg p-5',
         },
-    },
-    defaultVariants: {
-        size: 'small',
+        defaultVariants: {
+            size: 'small',
+        },
     },
 });
 
-interface ModalBodyProps extends VariantProps<typeof bodyClasses> {
+interface ModalBodyProps extends VariantProps<typeof bodyClassesProvider> {
     children: React.ReactNode;
     className?: string;
 }
 
-export const ModalBody = ({ children, className, size }: ModalBodyProps) => {
+const ModalBody: React.FC<ModalBodyProps> = ({ children, className, ...variantProps }) => {
+    const bodyClasses = bodyClassesProvider(variantProps);
+
     return (
         <>
-            <div className={classNames('flex flex-col', className, bodyClasses({ size }))}>{children}</div>
+            <div className={classNames('flex flex-col', className, bodyClasses)}>{children}</div>
         </>
     );
 };
+
+export default ModalBody;
