@@ -3,7 +3,7 @@ import { authActivation, authLogin, authLogout, authSignup } from 'core/api/endp
 
 import TokenStorage from 'core/services/tokenStorage/tokenStorage';
 import { resetReduxAction } from 'shared-state/actions';
-import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
+import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 
 export interface AuthorizationState {
     authenticated: boolean;

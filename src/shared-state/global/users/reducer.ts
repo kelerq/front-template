@@ -9,7 +9,7 @@ import {
 import { User } from 'core/domainModels/users/user';
 import TokenStorage from 'core/services/tokenStorage/tokenStorage';
 import { resetReduxAction } from 'shared-state/actions';
-import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
+import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import { getUserDetails, updateUser } from 'core/api/endpoints/users/users';
 
 export interface UsersState {

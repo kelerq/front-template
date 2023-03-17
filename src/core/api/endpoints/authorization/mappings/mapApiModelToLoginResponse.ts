@@ -1,10 +1,14 @@
-import { LoginResponse } from 'core/domainModels/authorization/responses/loginResponse';
+import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
+import { LoginResponseApiModel } from '../models/loginResponseApiModel';
 
-export const mapApiModelToLoginResponse = (apiModel): LoginResponse => {
-    return {
-        tokenType: apiModel.token_type,
-        expiresIn: apiModel.expires_in,
-        accessToken: apiModel.access_token,
-        refreshToken: apiModel.refresh_token,
-    };
-};
+export const mapApiModelToLoginResponse = ({
+    token_type,
+    expires_in,
+    access_token,
+    refresh_token,
+}: LoginResponseApiModel): LoginResponse => ({
+    tokenType: token_type,
+    expiresIn: expires_in,
+    accessToken: access_token,
+    refreshToken: refresh_token,
+});

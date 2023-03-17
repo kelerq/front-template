@@ -1,90 +1,87 @@
-import { LoginResponse } from 'core/domainModels/authorization/responses/loginResponse';
-import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
+import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
+import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import { User } from 'core/domainModels/users/user';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
+import { mapApiModelToUser } from '../users/mappings/mapApiModelToUser';
 import { authEndpointURL as authURL } from './common';
 import { mapApiModelToLoginResponse } from './mappings/mapApiModelToLoginResponse';
-import { mapApiModelToUserInfo } from './mappings/mapApiModelToUser';
 
-export const authLogin = (username: string, password: string): Promise<LoginResponse> => {
+export const authLogin = async (username: string, password: string): Promise<LoginResponse> => {
     const authLoginURL = `${authURL}/login`;
-    let loginForm = new FormData();
+    const loginForm = new FormData();
     loginForm.append('username', username);
     loginForm.append('password', password);
 
-    return axios
-        .post(authLoginURL, loginForm)
-        .then(response => {
-            const responseModel = mapApiModelToLoginResponse(response.data);
-            if (!responseModel || !responseModel.accessToken) {
-                throw new Error('Login action failed');
-            }
+    try {
+        const response = await axios.post(authLoginURL, loginForm);
+        const responseModel = mapApiModelToLoginResponse(response.data);
 
-            return responseModel as LoginResponse;
-        })
-        .catch((err: any) => {
-            throw new Error(err);
-        });
+        if (!responseModel || !responseModel.accessToken) {
+            throw new Error('Login action failed');
+        }
+
+        return responseModel as LoginResponse;
+    } catch (err) {
+        throw new Error('Login action failed');
+    }
 };
 
-export const authSignup = (model: SignupRequest): Promise<string> => {
+export const authSignup = async (model: SignupRequest): Promise<string> => {
     const authSignupURL = `${authURL}/register`;
 
-    return axios
-        .post(authSignupURL, model)
-        .then(response => {
-            if (!response) {
-                throw new Error('Signup action failed');
-            }
-            return response.data.userId;
-        })
-        .catch((err: any) => {
-            throw new Error(err);
-        });
+    try {
+        const response = await axios.post(authSignupURL, model);
+
+        if (!response) {
+            throw new Error('Signup action failed');
+        }
+
+        return response.data.userId;
+    } catch (err) {
+        throw new Error('Signup action failed');
+    }
 };
 
-export const authLogout = (): Promise<string> => {
-    const authSignupURL = `${authURL}/api/logout`;
+export const authLogout = async (): Promise<string> => {
+    const authLogoutURL = `${authURL}/api/logout`;
 
-    return axios
-        .get(authSignupURL)
-        .then(response => {
-            if (!response) {
-                throw new Error('Logout action failed');
-            }
-            return response.data;
-        })
-        .catch((err: any) => {
-            throw new Error(err);
-        });
+    try {
+        const response = await axios.get(authLogoutURL);
+
+        if (!response) {
+            throw new Error('Logout action failed');
+        }
+
+        return response.data;
+    } catch (err) {
+        throw new Error('Logout action failed');
+    }
 };
 
-export const authActivation = (email: string, activationToken: string): Promise<any> => {
-    const authSignupURL = `${authURL}/confirm-user`;
+export const authActivation = async (email: string, activationToken: string): Promise<any> => {
+    const authActivationURL = `${authURL}/confirm-user`;
 
-    return axios
-        .put(authSignupURL, { email, activationToken })
-        .then(response => {
-            return response.data;
-        })
-        .catch((err: any) => {
-            throw new Error(err);
-        });
+    try {
+        const response = await axios.put(authActivationURL, { email, activationToken });
+        return response.data;
+    } catch (err) {
+        throw new Error('Activation action failed');
+    }
 };
 
-export const authUserDetails = (): Promise<User> => {
-    const authLoginURL = `${authURL}/api/me/info`;
+export const authUserDetails = async (): Promise<User> => {
+    const authUserDetailsURL = `${authURL}/api/me/info`;
 
-    return axios
-        .get(authLoginURL)
-        .then(response => {
-            const responseModel = mapApiModelToUserInfo(response.data.data);
-            if (!responseModel) {
-                throw new Error('Get user info action failed');
-            }
-            return responseModel as User;
-        })
-        .catch((err: any) => {
-            throw new Error(err);
-        });
+    try {
+        const response = await axios.get(authUserDetailsURL);
+        const responseModel = mapApiModelToUser(response.data.data);
+
+        if (!responseModel) {
+            throw new Error('Get user info action failed');
+        }
+
+        return responseModel as User;
+    } catch (err) {
+        throw new Error('Get user info action failed');
+    }
 };

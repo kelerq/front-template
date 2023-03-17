@@ -1,4 +1,4 @@
-import { SignupRequest } from 'core/domainModels/authorization/requests/signupRequest';
+import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import { z } from 'zod';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';

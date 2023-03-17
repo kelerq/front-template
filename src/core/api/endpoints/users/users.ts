@@ -3,10 +3,9 @@ import { Permission } from 'core/domainModels/users/permission';
 import { User } from 'core/domainModels/users/user';
 import { UserPermission } from 'core/domainModels/users/userPermission';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
-import { mapApiModelToUserInfo } from '../authorization/mappings/mapApiModelToUser';
 import { mapApiModelToUserPermission } from './mappings/mapApiModelToUserPermission';
-import { mapApiModelToUser } from './mappings/mapApiModelToUserDetails';
-import { UserApiModel } from './models/UserApiModel';
+import { mapApiModelToUser } from './mappings/mapApiModelToUser';
+import { UserApiModel } from './models/userApiModel';
 
 export const usersEndpointURL = `${config.importercalcAPI.url}/api/users`;
 
@@ -65,7 +64,7 @@ export const getUserDetails = async (userId: string): Promise<User> => {
 export const getUsers = async (url: string): Promise<Array<User>> => {
     try {
         const response = await axios.get(url);
-        const users = response.data.data.map((user: UserApiModel) => mapApiModelToUserInfo(user));
+        const users = response.data.data.map((user: UserApiModel) => mapApiModelToUser(user));
         if (!users) {
             throw new Error('empty response');
         }
