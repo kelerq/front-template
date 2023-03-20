@@ -1,5 +1,5 @@
 import { UserPermission } from 'core/domainModels/users/userPermission';
-import { UserPermissionApiModel } from '../models/userPermissionApiModel';
+import { UserPermissionApiModel } from '../models/UserPermissionApiModel';
 
 export const mapApiModelToUserPermission = (
     { id, title, slug }: UserPermissionApiModel,
