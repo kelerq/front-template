@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { UserIcon } from 'assets/icons/icons';
-import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
 import { useUser } from 'shared-hooks/useUser';
 import React from 'react';
 import Container from 'shared-ui/atoms/Container';
+import LoadingOverlay from 'shared-ui/molecules/LoadingOverlay';
 
 const UserInfoContainer = () => {
     const { id } = useParams();

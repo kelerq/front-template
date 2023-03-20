@@ -1,4 +1,3 @@
-import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux/es/hooks/useDispatch';
@@ -8,6 +7,7 @@ import { DispatchType } from 'shared-state/configureStore';
 import { activationThunk } from 'shared-state/global/authorization/reducer';
 import { Hero, HeroSubtitle } from 'shared-ui/atoms/Hero';
 import Container from 'shared-ui/atoms/Container';
+import LoadingOverlay from 'shared-ui/molecules/LoadingOverlay';
 interface ActivationParams {
     activationToken: string;
     email: string;

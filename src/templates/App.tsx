@@ -1,7 +1,7 @@
-import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from 'shared-state/applicationState';
+import LoadingOverlay from 'shared-ui/molecules/LoadingOverlay';
 import { AuthenticatedTemplate } from './authenticated/AuthenticatedTemplate';
 import { AuthorizationTemplate } from './authorization/AuthorizationTemplate';
 

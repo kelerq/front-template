@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { LoadingOverlay } from 'shared-ui/molecules/LoadingOverlay';
+
 import { useUser } from 'shared-hooks/useUser';
 import React from 'react';
 import { TabsNavigator } from 'shared-ui/organisms/TabsNavigator';
@@ -8,6 +8,7 @@ import { PermissionsComponent } from './PermissionsComponent';
 import Container from 'shared-ui/atoms/Container';
 import Row from 'shared-ui/atoms/Row';
 import OtherComponent from './OtherComponent';
+import LoadingOverlay from 'shared-ui/molecules/LoadingOverlay';
 
 export const UserEditContainer = () => {
     const { id } = useParams();

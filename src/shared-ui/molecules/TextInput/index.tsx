@@ -5,6 +5,7 @@ import { InputContainer } from 'shared-ui/atoms/InputContainer';
 
 import { cva } from 'class-variance-authority';
 import Label from 'shared-ui/atoms/Label';
+import { ErrorMessage } from 'shared-ui/atoms/ErrorMessage';
 
 const inputClasses = cva('w-full rounded-lg bg-transparent outline-none', {
     variants: {
@@ -96,7 +97,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                         disabled={disabled}
                         {...register}
                     />
-                    {error && <div className="mt-2 text-xs text-destructive">{error}</div>}
+                    {error && <ErrorMessage message={error} visible />}
                 </Label>
             </InputContainer>
         );

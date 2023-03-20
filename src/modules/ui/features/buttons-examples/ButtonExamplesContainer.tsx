@@ -1,11 +1,13 @@
 import React from 'react';
 
 import Button from 'shared-ui/atoms/Button';
+import InputCheckbox from 'shared-ui/atoms/InputCheckbox';
 import Col from 'shared-ui/atoms/Col';
 import Container from 'shared-ui/atoms/Container';
 import Row from 'shared-ui/atoms/Row';
 
 export function ButtonExamplesContainer(): JSX.Element {
+    const [checked, setChecked] = React.useState(false);
     return (
         <Container>
             <Row>
@@ -20,6 +22,8 @@ export function ButtonExamplesContainer(): JSX.Element {
                     <Button modifier="plain">Action (plain)</Button>
                     <Button disabled>Action (disabled)</Button>
                     <Button loading>Action (loading)</Button>
+                    <InputCheckbox checked={checked} onChange={value => setChecked(value)} label="Label" />
+                    <InputCheckbox checked={checked} onChange={value => setChecked(value)} disabled label="Disabled" />
                 </Col>
                 <Col title="Primary" className="items-start">
                     <Button variant="primary" size="tiny">
@@ -46,6 +50,14 @@ export function ButtonExamplesContainer(): JSX.Element {
                     <Button variant="primary" loading>
                         Action (loading)
                     </Button>
+                    <InputCheckbox variant="primary" checked={checked} onChange={value => setChecked(value)} label="Label" />
+                    <InputCheckbox
+                        variant="primary"
+                        checked={checked}
+                        onChange={value => setChecked(value)}
+                        disabled
+                        label="Disabled"
+                    />
                 </Col>
                 <Col title="Secondary" className="items-start">
                     <Button variant="secondary" size="tiny">
@@ -72,6 +84,14 @@ export function ButtonExamplesContainer(): JSX.Element {
                     <Button variant="secondary" loading>
                         Action (loading)
                     </Button>
+                    <InputCheckbox variant="secondary" checked={checked} onChange={value => setChecked(value)} label="Label" />
+                    <InputCheckbox
+                        variant="secondary"
+                        checked={checked}
+                        onChange={value => setChecked(value)}
+                        disabled
+                        label="Disabled"
+                    />
                 </Col>
                 <Col title="Accent" className="items-start">
                     <Button variant="accent" size="tiny">
@@ -98,6 +118,14 @@ export function ButtonExamplesContainer(): JSX.Element {
                     <Button variant="accent" loading>
                         Action (loading)
                     </Button>
+                    <InputCheckbox variant="accent" checked={checked} onChange={value => setChecked(value)} label="Label" />
+                    <InputCheckbox
+                        variant="accent"
+                        checked={checked}
+                        onChange={value => setChecked(value)}
+                        disabled
+                        label="Disabled"
+                    />
                 </Col>
                 <Col title="Ghost" className="items-start">
                     <Button variant="ghost" size="tiny">
