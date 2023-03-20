@@ -34,14 +34,14 @@ const switchThumbClasses = cva('block w-4 h-4 rounded-full float-right', {
     },
 });
 
-interface SwitchButtonProps extends VariantProps<typeof switchRootClasses> {
+interface InputSwitchProps extends VariantProps<typeof switchRootClasses> {
     className?: string;
     checked: boolean;
     onChange: (checked: boolean) => void;
     variant?;
 }
 
-const SwitchButton = ({ className, checked, onChange, variant = 'default' }: SwitchButtonProps) => {
+const InputToggleSwitch = ({ className, checked, onChange, variant = 'default' }: InputSwitchProps) => {
     const rootClasses = switchRootClasses({
         variant,
     });
@@ -72,4 +72,4 @@ const SwitchButton = ({ className, checked, onChange, variant = 'default' }: Swi
     );
 };
 
-export default SwitchButton;
+export default InputToggleSwitch;

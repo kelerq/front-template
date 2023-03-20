@@ -1,5 +1,5 @@
 import React from 'react';
-import SwitchButton from 'shared-ui/atoms/Switch';
+import InputToggleSwitch from 'shared-ui/atoms/InputToggleSwitch';
 import Button from 'shared-ui/atoms/Button';
 import InputCheckbox from 'shared-ui/atoms/InputCheckbox';
 import Col from 'shared-ui/atoms/Col';
@@ -25,7 +25,7 @@ export function ButtonExamplesContainer(): JSX.Element {
                     <Button loading>Action (loading)</Button>
                     <InputCheckbox checked={checked} onChange={value => setChecked(value)} label="Label" />
                     <InputCheckbox checked={checked} onChange={value => setChecked(value)} disabled label="Disabled" />
-                    <SwitchButton checked={checked} onChange={value => setChecked(value)} />
+                    <InputToggleSwitch checked={checked} onChange={value => setChecked(value)} />
                 </Col>
                 <Col title="Primary" className="items-start">
                     <Button variant="primary" size="tiny">
@@ -60,7 +60,7 @@ export function ButtonExamplesContainer(): JSX.Element {
                         disabled
                         label="Disabled"
                     />
-                    <SwitchButton variant="primary" checked={checked} onChange={value => setChecked(value)} />
+                    <InputToggleSwitch variant="primary" checked={checked} onChange={value => setChecked(value)} />
                 </Col>
                 <Col title="Secondary" className="items-start">
                     <Button variant="secondary" size="tiny">
@@ -95,7 +95,7 @@ export function ButtonExamplesContainer(): JSX.Element {
                         disabled
                         label="Disabled"
                     />
-                    <SwitchButton variant="secondary" checked={checked} onChange={value => setChecked(value)} />
+                    <InputToggleSwitch variant="secondary" checked={checked} onChange={value => setChecked(value)} />
                 </Col>
                 <Col title="Accent" className="items-start">
                     <Button variant="accent" size="tiny">
@@ -130,7 +130,7 @@ export function ButtonExamplesContainer(): JSX.Element {
                         disabled
                         label="Disabled"
                     />
-                    <SwitchButton variant="accent" checked={checked} onChange={value => setChecked(value)} />
+                    <InputToggleSwitch variant="accent" checked={checked} onChange={value => setChecked(value)} />
                 </Col>
                 <Col title="Ghost" className="items-start">
                     <Button variant="ghost" size="tiny">
