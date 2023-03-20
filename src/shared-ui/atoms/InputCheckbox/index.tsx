@@ -56,7 +56,7 @@ const InputCheckbox: FC<InputCheckboxProps> = ({ label, className, checked, onCh
 
     return (
         <form>
-            <Row className="flex">
+            <Row>
                 <Checkbox.Root
                     checked={checked}
                     onCheckedChange={onCheckedChange}
