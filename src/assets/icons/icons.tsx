@@ -2,10 +2,16 @@ import React from 'react';
 
 interface IconProps {
     className?: string;
+    viewBox?: string;
 }
 
-export const SvgWrapper: React.FC<IconProps & React.SVGProps<SVGSVGElement>> = ({ className, children, ...props }) => (
-    <svg fill="none" viewBox="0 0 24 24" className={className} {...props}>
+export const SvgWrapper: React.FC<IconProps & React.SVGProps<SVGSVGElement>> = ({
+    className,
+    children,
+    viewBox = '0 0 24 24',
+    ...props
+}) => (
+    <svg fill="none" className={className} viewBox={viewBox} {...props}>
         {children}
     </svg>
 );
@@ -77,6 +83,27 @@ export const MinusIcon = ({ className }: IconProps) => {
     return (
         <SvgWrapper className={className} stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+        </SvgWrapper>
+    );
+};
+
+export const ExclamationIcon = ({ className, viewBox }: IconProps) => {
+    return (
+        <SvgWrapper className={className} viewBox={viewBox} stroke-width="1.5">
+            <path
+                d="M51.6666 95.8332C76.9796 95.8332 97.4999 75.3129 97.4999 49.9998C97.4999 24.6868 76.9796 4.1665 51.6666 4.1665C26.3535 4.1665 5.83325 24.6868 5.83325 49.9998C5.83325 75.3129 26.3535 95.8332 51.6666 95.8332Z"
+                fill="#FFC107"
+            />
+            <path d="M54.9999 70H48.3333V77.0833H54.9999V70Z" fill="black" stroke="black" />
+            <path d="M54.9999 22.5H48.3333V60.8333H54.9999V22.5Z" fill="black" stroke="black" />
+        </SvgWrapper>
+    );
+};
+
+export const CloseIcon = ({ className, viewBox }: IconProps) => {
+    return (
+        <SvgWrapper className={className} viewBox={viewBox} stroke-width="1.5" stroke="currentColor">
+            <path d="M1 13L13 1M1 1L13 13" stroke="#B7BDC6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </SvgWrapper>
     );
 };

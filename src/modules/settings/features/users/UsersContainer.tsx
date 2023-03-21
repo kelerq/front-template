@@ -71,12 +71,7 @@ export const UsersContainer = () => {
 
     return (
         <Container className="flex flex-col h-full ag-theme-alpine-dark">
-            <ConfirmationModal
-                isOpen={blockUserModal.isOpen}
-                onClose={closeModal}
-                onConfirm={confirmBlockUser}
-                title="Block user"
-            >
+            <ConfirmationModal isOpen={blockUserModal.isOpen} onClose={closeModal} onConfirm={confirmBlockUser}>
                 Are you sure you want to block this user?
                 <TextInput label="Reason" value={blockUserModal.reason} onChange={onReasonChange} />
             </ConfirmationModal>

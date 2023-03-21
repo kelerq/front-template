@@ -23,11 +23,7 @@ const footerClasses = cva('', {
 });
 
 const ModalFooter: FC<ModalFooterProps> = ({ children, className, size = 'tiny' }) => {
-    const footerClassNames = classNames(
-        'flex flex-row justify-end border-t border-white-a08',
-        className,
-        footerClasses({ size }),
-    );
+    const footerClassNames = classNames('flex flex-row justify-center py-8', className, footerClasses({ size }));
 
     return <div className={footerClassNames}>{children}</div>;
 };

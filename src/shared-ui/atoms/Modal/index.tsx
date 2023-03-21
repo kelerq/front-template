@@ -6,10 +6,10 @@ const modalClasses = cva('', {
     variants: {
         variant: {},
         size: {
-            tiny: 'w-1/6',
-            small: 'w-1/4',
-            medium: 'w-1/3',
-            large: 'w-1/2',
+            tiny: 'md:w-1/6',
+            small: 'md:w-1/4',
+            medium: 'md:w-1/3',
+            large: 'md:w-1/2',
 
             'tiny-tall': 'w-1/6 h-1/2',
             'small-tall': 'w-1/4 h-1/2',
@@ -45,7 +45,7 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onRequestClose, 
             {isOpen && (
                 <div
                     className={classNames(
-                        'fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center',
+                        'fixed top-0 left-0 w-full h-full z-50 flex flex-col items-center justify-center',
                         {
                             'opacity-0 pointer-events-none': isClosing,
                         },
@@ -62,7 +62,7 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onRequestClose, 
                     />
                     <div
                         className={classNames(
-                            'bg-primary-gradient rounded-lg shadow-lg z-50 mx-auto pointer-events-auto transform transition-all',
+                            'bg-white rounded-lg shadow-lg z-50 mx-auto pointer-events-auto transform transition-all flex flex-col ',
                             {
                                 'opacity-0 scale-95': isClosing,
                                 'opacity-100 scale-100': !isClosing,
@@ -72,6 +72,7 @@ export const Modal: React.FC<ModalProps> = ({ children, isOpen, onRequestClose, 
                             { 'transition-transform duration-300': !isClosing },
                             { 'transition-transform duration-300': isClosing },
                             modalClasses({ size, color }),
+                            'w-full',
                         )}
                     >
                         {children}
