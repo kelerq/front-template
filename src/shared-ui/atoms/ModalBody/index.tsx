@@ -26,7 +26,7 @@ const ModalBody: React.FC<ModalBodyProps> = ({ children, className, ...variantPr
 
     return (
         <>
-            <div className={classNames('flex flex-col', className, bodyClasses)}>{children}</div>
+            <div className={classNames('flex flex-col items-center gap-y-5', className, bodyClasses)}>{children}</div>
         </>
     );
 };

@@ -8,7 +8,7 @@ interface ModalFooterProps extends VariantProps<typeof footerClasses> {
     className?: string;
 }
 
-const footerClasses = cva('', {
+const footerClasses = cva('flex flex-row justify-center py-8', {
     variants: {
         size: {
             tiny: 'text-xs p-2',
@@ -22,12 +22,8 @@ const footerClasses = cva('', {
     },
 });
 
-const ModalFooter: FC<ModalFooterProps> = ({ children, className, size = 'tiny' }) => {
-    const footerClassNames = classNames(
-        'flex flex-row justify-end border-t border-white-a08',
-        className,
-        footerClasses({ size }),
-    );
+const ModalFooter: FC<ModalFooterProps> = ({ children, size = 'tiny', className }) => {
+    const footerClassNames = classNames(footerClasses({ size }), className);
 
     return <div className={footerClassNames}>{children}</div>;
 };
