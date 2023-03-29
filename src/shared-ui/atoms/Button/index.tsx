@@ -4,7 +4,7 @@ import { VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import { cva } from 'class-variance-authority';
 
-const buttonClasses = cva('rounded-sm relative', {
+const buttonClasses = cva('rounded-sm relative transition delay-50 duration-300 text-center align-middle', {
     variants: {
         variant: {
             default: 'bg-neutral text-neutral-content focus:bg-neutral-focus focus:opacity-100 hover:opacity-90',
@@ -117,7 +117,7 @@ const Button = ({
         const linkProps: LinkProps = {
             to: href,
             replace: replacePath,
-            className: classNames(className, buttonClassNames),
+            className: classNames('flex flex-col justify-center', buttonClassNames, className),
         };
 
         return <Link {...linkProps}>{content}</Link>;
@@ -126,7 +126,7 @@ const Button = ({
     const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
         ...rest,
         disabled: disabled || loading,
-        className: classNames(className, buttonClassNames),
+        className: classNames(buttonClassNames, className),
         onClick,
     };
 
