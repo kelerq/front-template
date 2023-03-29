@@ -4,7 +4,7 @@
 
 @layer base {
     :root {
-        --navigation-height: 5rem;
+        --navigation-height: 7rem;
     }
     html {
         @apply h-full font-sans text-base-content bg-base-200;
