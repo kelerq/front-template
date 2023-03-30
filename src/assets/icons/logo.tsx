@@ -5,10 +5,10 @@ export const Logo = ({ className }: { className?: string }) => (
         version="1.1"
         id="Layer_1"
         xmlns="http://www.w3.org/2000/svg"
-        x="0px"
-        y="0px"
+        x="0rem"
+        y="0rem"
         viewBox="0 0 2559 888"
-        className="w-32 h-8"
+        className="w-48 h-32 fill-current"
     >
         <g>
             <path
