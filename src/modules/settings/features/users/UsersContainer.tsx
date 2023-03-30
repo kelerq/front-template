@@ -70,25 +70,27 @@ export const UsersContainer = () => {
     };
 
     return (
-        <Container className="flex flex-col h-full ag-theme-alpine-dark">
-            <ConfirmationModal isOpen={blockUserModal.isOpen} onClose={closeModal} onConfirm={confirmBlockUser}>
-                Are you sure you want to block this user?
-                <TextInput label="Reason" value={blockUserModal.reason} onChange={onReasonChange} />
-            </ConfirmationModal>
-            <AgGridReact
-                className="mt-4"
-                rowModelType="serverSide"
-                domLayout="autoHeight"
-                onGridReady={onGridReady}
-                defaultColDef={usersTableColumnsDefs}
-                columnDefs={usersTableColumns(blockUserAction, navigate)}
-                suppressLoadingOverlay
-                pagination
-                paginationPageSize={10}
-                cacheBlockSize={10}
-                maxBlocksInCache={10}
-                serverSideStoreType="partial"
-            />
-        </Container>
+        <>
+            <Container className="flex flex-col h-full ag-theme-alpine-dark">
+                <ConfirmationModal isOpen={blockUserModal.isOpen} onClose={closeModal} onConfirm={confirmBlockUser}>
+                    Are you sure you want to block this user?
+                    <TextInput label="Reason" value={blockUserModal.reason} onChange={onReasonChange} />
+                </ConfirmationModal>
+                <AgGridReact
+                    className="mt-4"
+                    rowModelType="serverSide"
+                    domLayout="autoHeight"
+                    onGridReady={onGridReady}
+                    defaultColDef={usersTableColumnsDefs}
+                    columnDefs={usersTableColumns(blockUserAction, navigate)}
+                    suppressLoadingOverlay
+                    pagination
+                    paginationPageSize={10}
+                    cacheBlockSize={10}
+                    maxBlocksInCache={10}
+                    serverSideStoreType="partial"
+                />
+            </Container>
+        </>
     );
 };

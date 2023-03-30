@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Row from 'shared-ui/atoms/Row';
+import Col from 'shared-ui/atoms/Col';
 import TabItem from 'shared-ui/atoms/TabItem';
 import { TabView } from '../../organisms/TabsNavigator/models/tabView';
-
+import { NavHeader } from 'shared-ui/atoms/NavHeader';
 interface NavigationPanelProps {
+    title: string;
     tabs: Array<TabView>;
     path: string;
     disabled?: boolean;
@@ -13,15 +14,25 @@ interface NavigationPanelProps {
     setActiveTab: (newTabIndex: number) => void;
 }
 
-export const NavigationPanel = ({ tabs, path, disabled, routing = true, activeTab, setActiveTab }: NavigationPanelProps) => (
-    <Row className="text-sm text-center text-white border-b border-white">
+export const NavigationPanel = ({
+    title,
+    tabs,
+    path,
+    disabled,
+    routing = true,
+    activeTab,
+    setActiveTab,
+}: NavigationPanelProps) => (
+    <div className="flex flex-row  h-[67px] w-screen p-0 overflow-x-auto text-sm sm:border-r sm:min-h-screen sm:w-1/4 xl:w-1/6 sm:flex-col border-base-border text-base-400 sm:bg-white bg-accent-focus">
+        <NavHeader>{title}</NavHeader>
         <nav>
-            <ul className="flex flex-wrap -mb-px">
+            <ul className="flex flex-row -mb-px sm:flex-col">
                 {tabs.map((tab, index) => (
                     <React.Fragment key={index}>
                         {routing ? (
                             <Link to={`${tab.path}`}>
                                 <TabItem
+                                    icon={tab.icon}
                                     name={tab.name}
                                     index={index}
                                     path={path}
@@ -31,6 +42,7 @@ export const NavigationPanel = ({ tabs, path, disabled, routing = true, activeTa
                             </Link>
                         ) : (
                             <TabItem
+                                icon={tab.icon}
                                 name={tab.name}
                                 index={index}
                                 path={path}
@@ -42,5 +54,5 @@ export const NavigationPanel = ({ tabs, path, disabled, routing = true, activeTa
                 ))}
             </ul>
         </nav>
-    </Row>
+    </div>
 );

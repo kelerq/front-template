@@ -21,7 +21,7 @@ export const SubNavPanel = ({ subTabs, path, disabled, routing = true, activeTab
                         {routing ? (
                             <Link to={`${subTab.path}`}>
                                 <SubTabItem
-                                    // icon={subTab.icon}
+                                    icon={subTab.icon}
                                     name={subTab.name}
                                     index={index}
                                     path={path}
@@ -31,7 +31,7 @@ export const SubNavPanel = ({ subTabs, path, disabled, routing = true, activeTab
                             </Link>
                         ) : (
                             <SubTabItem
-                                // icon={subTab.icon}
+                                icon={subTab.icon}
                                 name={subTab.name}
                                 index={index}
                                 path={path}

@@ -9,7 +9,6 @@ import Container from 'shared-ui/atoms/Container';
 import Row from 'shared-ui/atoms/Row';
 import OtherComponent from './OtherComponent';
 import LoadingOverlay from 'shared-ui/molecules/LoadingOverlay';
-
 export const UserEditContainer = () => {
     const { id } = useParams();
     const { user, userPermissions, isLoading, error, permissions } = useUser(id ? id : '');
@@ -45,7 +44,9 @@ export const UserEditContainer = () => {
                                 <h1 className="mb-4 text-3xl font-medium text-gray-900 title-font">
                                     {user.firstName} {user.lastName}
                                 </h1>
-                                {user && permissions && userPermissions && <TabsNavigator tabs={tabs} path={'edit'} />}
+                                {user && permissions && userPermissions && (
+                                    <TabsNavigator title={'User'} tabs={tabs} path={'edit'} />
+                                )}
                             </div>
                         </Row>
                     </Container>

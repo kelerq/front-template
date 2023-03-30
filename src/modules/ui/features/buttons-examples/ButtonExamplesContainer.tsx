@@ -5,32 +5,12 @@ import InputCheckbox from 'shared-ui/atoms/InputCheckbox';
 import Col from 'shared-ui/atoms/Col';
 import Container from 'shared-ui/atoms/Container';
 import Row from 'shared-ui/atoms/Row';
-import { useState } from 'react';
-import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
 
 export function ButtonExamplesContainer(): JSX.Element {
     const [checked, setChecked] = React.useState(false);
-    const [confirmationModal, setConfirmationModal] = useState({
-        isOpen: false,
-    });
-
-    const closeModal = () => {
-        setConfirmationModal({ isOpen: false });
-    };
-    const confirmModalQuestion = () => {
-        closeModal();
-    };
-
-    const openModal = () => {
-        setConfirmationModal({ isOpen: true });
-    };
-
     return (
-        <Container>
-            <ConfirmationModal isOpen={confirmationModal.isOpen} onClose={closeModal} onConfirm={confirmModalQuestion}>
-                Czy jesteś pewien, że chcesz opuścić formularz?
-            </ConfirmationModal>
-            <Row>
+        <Container className="flex flex-row flex-wrap">
+            <Row className="flex flex-row flex-wrap">
                 <Col title="Regular" className="items-start">
                     <Button size="tiny">Action (tiny) </Button>
                     <Button size="small">Action (small)</Button>
@@ -178,9 +158,6 @@ export function ButtonExamplesContainer(): JSX.Element {
                     </Button>
                 </Col>
             </Row>
-            <Button size="medium" onClick={openModal}>
-                Open confirmation modal{' '}
-            </Button>
         </Container>
     );
 }

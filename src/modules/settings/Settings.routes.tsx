@@ -2,29 +2,37 @@ import { TabsNavigator } from 'shared-ui/organisms/TabsNavigator';
 import React, { Suspense } from 'react';
 import { UsersContainer } from './features/users/UsersContainer';
 import PermissionsContainer from './features/permissions/PermissionsContainer';
-import { AccountContainer } from './features/account/AccountContainer';
+import { UsersIcon, PermissionsIcon, UIIcon } from 'assets/icons/icons';
+import { UIContainer } from './features/ui/UIContainer';
 
 export function SettingsRoutes(): JSX.Element {
     const tabs = [
         {
-            name: 'Moje konto',
-            container: <AccountContainer />,
-            path: 'account',
-        },
-        {
             name: 'Użytkownicy',
             container: <UsersContainer />,
             path: 'users',
+            icon: <UsersIcon className="w-[24px] h-[24px]" viewBox="0 0 24 24" />,
         },
         {
-            name: 'Zezwolenia',
+            name: 'Uprawnienia',
             container: (
                 <Suspense fallback={<div>Loading...</div>}>
                     <PermissionsContainer />
                 </Suspense>
             ),
             path: 'permissions',
+            icon: <PermissionsIcon className="w-[24px] h-[24px]" viewBox="0 0 24 24" />,
+        },
+        {
+            name: 'UI',
+            container: (
+                <Suspense fallback={<div>Loading...</div>}>
+                    <UIContainer />
+                </Suspense>
+            ),
+            path: 'ui',
+            icon: <UIIcon className="w-[24px] h-[24px]" viewBox="0 0 30 30" />,
         },
     ];
-    return <TabsNavigator tabs={tabs} path={'settings'} routing />;
+    return <TabsNavigator title={'User'} tabs={tabs} path={'settings'} routing />;
 }
