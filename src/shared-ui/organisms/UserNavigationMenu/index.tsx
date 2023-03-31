@@ -12,8 +12,8 @@ export const NavigationMenuUser = ({ className }: NavigationMenuProps) => {
     return (
         <NavigationMenu.Root className={(classNames('relative z-[1] sm:w-screen'), className)}>
             <NavigationMenu.List className="h-[var(--navigation-height)] w-full flex sm:ml-6 items-center">
-                <QuestionMarkCircledIcon className="mr-2 w-[3rem] h-[3rem]" viewBox="0 0 15 15" fill="#181A2A" />
-                <BellIcon className="mr-2 w-[3rem] h-[3rem]" viewBox="0 0 15 15" fill="#181A2A" />
+                <QuestionMarkCircledIcon className="mr-2 w-[3rem] h-[3rem]" fill="#181A2A" />
+                <BellIcon className="mr-2 w-[3rem] h-[3rem]" fill="#181A2A" />
                 <UserNavigationItem />
             </NavigationMenu.List>
 

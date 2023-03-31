@@ -8,7 +8,7 @@ import { NavigationMenuUser } from '../UserNavigationMenu';
 
 export const HomeHeader = () => {
     return (
-        <header className="fixed top-0 left-0 z-10 w-full bg-white border-b border-base-border">
+        <header className="fixed top-0 left-0 z-10 w-full px-8 bg-white border-b border-base-border">
             <Container className="flex h-[var(--navigation-height)]">
                 <Link to="/im/home" className="flex items-center ">
                     <Logo className="w-[1.8rem] h-[1.8rem] mr-4" />

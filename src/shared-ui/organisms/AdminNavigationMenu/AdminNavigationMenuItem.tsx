@@ -5,7 +5,6 @@ import AdminListItem from './AdminListItem';
 import classNames from 'classnames';
 import { BrushIcon, KeyIcon, PieChartIcon, UsersIcon } from 'assets/icons/icons';
 import { InputSearch } from 'shared-ui/atoms/InputSearch';
-
 interface AdminNavigationItemProps {
     className?: string;
 }

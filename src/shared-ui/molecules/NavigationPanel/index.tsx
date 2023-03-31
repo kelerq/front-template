@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Col from 'shared-ui/atoms/Col';
 import TabItem from 'shared-ui/atoms/TabItem';
 import { TabView } from '../../organisms/TabsNavigator/models/tabView';
 import { NavHeader } from 'shared-ui/atoms/NavHeader';
@@ -23,10 +22,10 @@ export const NavigationPanel = ({
     activeTab,
     setActiveTab,
 }: NavigationPanelProps) => (
-    <div className="flex flex-row  h-[67px] w-screen p-0 overflow-x-auto text-sm sm:border-r sm:min-h-screen sm:w-1/4 xl:w-1/6 sm:flex-col border-base-border text-base-400 sm:bg-white bg-accent-focus">
+    <div className="flex flex-row w-screen p-0 overflow-x-auto text-sm lg:border-r lg:min-h-screen lg:w-1/4 xl:w-1/6 lg:flex-col border-base-border text-base-400 lg:bg-white bg-accent-focus">
         <NavHeader>{title}</NavHeader>
         <nav>
-            <ul className="flex flex-row -mb-px sm:flex-col">
+            <ul className="flex flex-row -mb-px lg:flex-col">
                 {tabs.map((tab, index) => (
                     <React.Fragment key={index}>
                         {routing ? (

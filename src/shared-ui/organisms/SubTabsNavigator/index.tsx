@@ -38,9 +38,9 @@ export const SubTabsNavigator: React.FC<SubTabNavigatorProps> = ({
         return subTabs[activeTab].container;
     };
     return (
-        <Container className="flex flex-col ">
+        <Container className="flex flex-col w-full">
             <SubNavPanel subTabs={subTabs} path={path} routing={routing} activeTab={activeTab} setActiveTab={setActiveTab} />
-            <div className="w-screen">{renderContent()}</div>
+            <div className="w-full">{renderContent()}</div>
         </Container>
     );
 };

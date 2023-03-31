@@ -33,7 +33,6 @@ export const UserListItem = React.forwardRef(
                         >
                             <Icon
                                 className={classNames('w-[2.5rem] h-[2.5rem] fill-base-400', isHovered && 'fill-primary-focus')}
-                                viewBox="0 0 35 35"
                             />
                             <p className="mx-4 text-2xl font-bold text-base-400 whitespace-nowrap sm:font-normal sm:text-xl">
                                 {children}

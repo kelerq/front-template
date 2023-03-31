@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react';
 import { SubTabsNavigator } from 'shared-ui/organisms/SubTabsNavigator';
-import { ButtonExamplesContainer } from 'modules/ui/features/buttons-examples/ButtonExamplesContainer';
-import { IconExamplesConatainer } from 'modules/ui/features/icons-examples/IconExamplesContainer';
-import { ModalExamplesConatainer } from 'modules/ui/features/modals-examples/ModalExamplesConatainer';
+import { ButtonExamplesContainer } from './features/buttons-examples/ButtonExamplesContainer';
+import { IconExamplesConatainer } from './features/icons-examples/IconExamplesContainer';
+import { ModalExamplesConatainer } from './features/modals-examples/ModalExamplesConatainer';
 
-export const UIContainer = () => {
+export const UIRoutes = () => {
     const subTabs = [
         {
             name: 'Przyciski',
@@ -35,9 +35,5 @@ export const UIContainer = () => {
         },
     ];
 
-    return (
-        <div className="max-w-xl">
-            <SubTabsNavigator subTabs={subTabs} path={'ui'} />;
-        </div>
-    );
+    return <SubTabsNavigator subTabs={subTabs} path={'ui'} />;
 };

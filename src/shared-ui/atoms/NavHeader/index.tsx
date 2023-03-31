@@ -6,5 +6,7 @@ interface NavHeaderProps {
 }
 
 export const NavHeader: FC<NavHeaderProps> = ({ children }) => (
-    <div className="hidden p-3 text-2xl border-b-2 sm:flex pl-7">{children}</div>
+    <div className="hidden py-2 text-2xl text-base-content border-b pl-11 h-[var(--subnav-height)] border-base-border lg:flex items-center">
+        {children}
+    </div>
 );

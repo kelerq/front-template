@@ -3,8 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Container from 'shared-ui/atoms/Container';
 import { NavigationPanel } from '../../molecules/NavigationPanel';
 import { TabView } from './models/tabView';
-import { NavHeader } from 'shared-ui/atoms/NavHeader';
-
 interface TabNavigatorProps {
     title: string;
     tabs: Array<TabView>;
@@ -42,7 +40,7 @@ export const TabsNavigator: React.FC<TabNavigatorProps> = ({
     };
 
     return (
-        <Container className="flex flex-col bg-white sm:flex-row">
+        <Container className="flex flex-col overflow-auto bg-white lg:flex-row">
             <NavigationPanel
                 title={title}
                 tabs={tabs}

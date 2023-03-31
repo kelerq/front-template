@@ -73,7 +73,7 @@ export const InputSearch: React.FC<SearchInputProps> = ({
                 placeholder={placeholder}
                 className={classNames(inputClasses({ size, fullWidth, isDisabled, modifier, variant }), className)}
             />
-            <SearchIcon className="h-[20px] w-[20px] absolute ml-2  stroke-base-300" viewBox="0 0 15 15" />
+            <SearchIcon className="h-[20px] w-[20px] absolute ml-2  stroke-base-300" />
         </div>
     );
 };

@@ -19,7 +19,7 @@ const SubTabItem: FC<SubTabItemProps> = ({ icon, name, index, path, activeTab, s
     const isActive = activeTab === index || (activeTab === undefined && index === 0);
 
     const itemClasses = classNames(
-        ' text-lg sm:text-l lg:text-xl flex h-[67px] whitespace-nowrap px-7',
+        ' text-lg sm:text-l lg:text-xl flex h-28 whitespace-nowrap px-7 cursor-pointer',
         isActive ? ' inline-block p-4 border-b-4 border-primary-focus text-primary-focus' : 'inline-block p-4 ',
     );
 

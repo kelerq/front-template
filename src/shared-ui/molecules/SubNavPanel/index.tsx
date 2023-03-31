@@ -13,7 +13,7 @@ interface SubNavPanelProps {
 }
 
 export const SubNavPanel = ({ subTabs, path, disabled, routing = true, activeTab, setActiveTab }: SubNavPanelProps) => (
-    <div className="flex flex-row w-screen border-b border-base-border ">
+    <div className="flex flex-row w-full overflow-x-auto border-b border-base-border h-[var(--subnav-height)]">
         <nav>
             <ul className="flex flex-row ">
                 {subTabs.map((subTab, index) => (
