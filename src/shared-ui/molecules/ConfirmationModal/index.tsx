@@ -29,11 +29,11 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
     <Modal isOpen={isOpen} onRequestClose={onClose} size="small">
         <ModalHeader size="large" className="items-end">
             <button onClick={onClose}>
-                <CloseIcon className="w-[1.4rem] h-[1.4.rem]" viewBox="0 0 14 14" />
+                <CloseIcon className="w-[1.4rem] h-[1.4.rem]" />
             </button>
         </ModalHeader>
         <ModalBody className={className} size="medium">
-            <ExclamationIcon className="w-[10rem] h-[10rem]" viewBox="0 0 100 100" />
+            <ExclamationIcon className="w-[10rem] h-[10rem]" />
             <span className="text-2xl text-center">{children}</span>
         </ModalBody>
         <ModalFooter className={className}>

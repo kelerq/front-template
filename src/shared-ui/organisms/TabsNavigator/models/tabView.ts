@@ -3,4 +3,5 @@ export interface TabView {
     path: string;
     container: JSX.Element;
     disabled?: boolean;
+    icon?;
 }

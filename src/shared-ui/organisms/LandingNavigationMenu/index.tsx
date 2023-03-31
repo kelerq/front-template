@@ -20,7 +20,7 @@ export const LandingNavigationMenu = ({ className }: NavigationMenuProps) => {
                     <Button href="/im/auth/signup" variant="primary" size="large" className="ml-2">
                         Rejestracja
                     </Button>
-                    <QuestionMarkCircledIcon className="mr-2 w-[3.5rem] h-[3.5rem] ml-4" viewBox="0 0 15 15" fill="#181A2A" />
+                    <QuestionMarkCircledIcon className="mr-2 w-[3.5rem] h-[3.5rem] ml-4" fill="#181A2A" />
                 </div>
                 <LandingNavigationItem className="sm:hidden" />
             </NavigationMenu.List>
