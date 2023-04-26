@@ -24,10 +24,6 @@ export function LoginContainer(): JSX.Element {
 
     const handleSubmit = ({ email, password }: LoginRequest) => {
         dispatch(loginThunk({ email: email, password: password })).then(() => {
-            if (checked) {
-                localStorage.setItem('email', email);
-                localStorage.setItem('password', password);
-            }
             redirect('/');
         });
     };
@@ -87,6 +83,7 @@ export function LoginContainer(): JSX.Element {
                         <InputToggleSwitch variant="accent" checked={checked} onChange={value => setChecked(value)} />
                         <p className={checked ? 'ml-2 text-xs text-base-400 ' : 'ml-2 text-xs text-base-300 '}>Zapamiętaj mnie</p>
                     </div>
+
                     <FormSubmit asChild>
                         <Button className="mt-5" size="large" fullWidth variant="primary">
                             Zaloguj się
