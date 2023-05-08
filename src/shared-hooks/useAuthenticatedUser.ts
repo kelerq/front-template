@@ -1,6 +1,6 @@
 import config from 'config';
 import { User } from 'core/domainModels/users/user';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { fetchWithAccessToken } from 'core/helpers/fetchWithAccessToken';
 
 async function fetchAuthenticatedUser() {
@@ -15,6 +15,6 @@ async function fetchAuthenticatedUser() {
 }
 
 export const useAuthenticatedUser = () => {
-    const { data, isLoading } = useQuery<User | undefined, Error>('user', fetchAuthenticatedUser);
+    const { data, isLoading } = useQuery<User | undefined, Error>(['user'], fetchAuthenticatedUser);
     return { user: data, isLoading };
 };

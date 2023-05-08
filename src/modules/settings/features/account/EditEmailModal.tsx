@@ -63,7 +63,7 @@ export const EditEmailModal = ({ user }: EditNameModalProps) => {
                         Edytuj
                     </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent size="medium">
                     <div className="flex flex-col items-center justify-center w-full h-full py-4">
                         <span className="text-4xl text-black">Edytuj email</span>
                     </div>

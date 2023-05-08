@@ -2,7 +2,7 @@ import config from 'config';
 import { fetchWithAccessToken } from 'core/helpers/fetchWithAccessToken';
 
 import { useEffect } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 async function confirmEmail({ email, token }: { email: string | null; token: string | null }) {
@@ -36,7 +36,7 @@ export const useConfirmEmail = () => {
 
     const confirmEmailMutation = useMutation(() => confirmEmail({ email, token }), {
         onSuccess: () => {
-            queryClient.invalidateQueries('user');
+            queryClient.invalidateQueries(['user']);
         },
     });
 

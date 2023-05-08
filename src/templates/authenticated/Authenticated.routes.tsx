@@ -1,10 +1,10 @@
+import { AdminRoutes } from 'modules/admin/Admin.routes';
+import HomeRoutes from 'modules/home/Home.routes';
+import { SettingsRoutes } from 'modules/settings/Settings.routes';
+import { UserRoutes } from 'modules/user/User.routes';
 import * as React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { SettingsRoutes } from 'modules/settings/Settings.routes';
-import HomeRoutes from 'modules/home/Home.routes';
-import { UserRoutes } from 'modules/user/User.routes';
 import { ConfirmEmailPage } from 'shared-ui/pages/confirm-email';
-import { AdminRoutes } from 'modules/admin/Admin.routes';
 
 export const AuthenticatedRoutes = () => {
     return (

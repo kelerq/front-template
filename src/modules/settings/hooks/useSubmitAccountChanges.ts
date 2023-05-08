@@ -1,6 +1,6 @@
 import { User } from 'core/domainModels/users/user';
 import { ToastHandle } from 'shared-ui/atoms/Toast/toastTypes';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import config from 'config';
 
 async function updateAccount({
@@ -58,7 +58,7 @@ export const useSubmitAccountChanges = (toastRefs: {
                 failedToastRef.current?.setupToast(variables.onFailed.message);
             },
             onSettled: () => {
-                queryClient.invalidateQueries('user');
+                queryClient.invalidateQueries(['user']);
             },
         },
     );

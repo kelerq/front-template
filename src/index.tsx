@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { loginCachedUserThunk } from 'shared-state/global/authorization/reducer';
 import * as Toast from '@radix-ui/react-toast';
 import * as Tooltip from '@radix-ui/react-tooltip';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 store.dispatch(loginCachedUserThunk({}));
 

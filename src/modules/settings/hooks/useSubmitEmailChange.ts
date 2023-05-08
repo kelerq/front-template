@@ -1,6 +1,6 @@
 import { User } from 'core/domainModels/users/user';
 import { ToastHandle } from 'shared-ui/atoms/Toast/toastTypes';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import config from 'config';
 
 async function updateEmail({ userId, email }: { userId: string; email: string }) {

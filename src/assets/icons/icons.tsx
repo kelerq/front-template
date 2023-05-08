@@ -107,7 +107,7 @@ export const ExclamationIcon = ({ className }: IconProps) => {
 export const CloseIcon = ({ className }: IconProps) => {
     return (
         <SvgWrapper className={className} viewBox="0 0 14 14" stroke-width="1.5" stroke="currentColor">
-            <path d="M1 13L13 1M1 1L13 13" stroke="#B7BDC6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M1 13L13 1M1 1L13 13" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </SvgWrapper>
     );
 };
