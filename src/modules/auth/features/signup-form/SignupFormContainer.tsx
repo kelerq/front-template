@@ -1,7 +1,7 @@
 import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import React from 'react';
 import { signupThunk } from 'shared-state/global/authorization/reducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ApplicationState } from 'shared-state/applicationState';
 import Button from 'shared-ui/atoms/Button';
@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { PatternTypes } from 'core/helpers/patternTypes';
 import InputCheckbox from 'shared-ui/atoms/InputCheckbox';
 import { useReducer } from 'react';
+import { DispatchType } from 'shared-state/configureStore';
 
 export const SignupFormContainer: React.FC = () => {
     const initialState = {
@@ -39,15 +40,17 @@ export const SignupFormContainer: React.FC = () => {
         }
     }
 
-    const [state, dispatch] = useReducer(formReducer, initialState);
+    const [state, changeState] = useReducer(formReducer, initialState);
 
     const handleInputChange = event => {
         const { name, value } = event.target;
-        dispatch({ type: 'SET_FIELD', field: name, value: value });
+        changeState({ type: 'SET_FIELD', field: name, value: value });
     };
 
     const navigate = useNavigate();
     const signupPending = useSelector((state: ApplicationState) => state.authorization.signupPending);
+
+    const dispatch = useDispatch<DispatchType>();
 
     const signup = form => dispatch(signupThunk(form)).then(() => navigate('/im/auth/signup/success'));
 
