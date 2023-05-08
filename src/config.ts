@@ -1,5 +1,4 @@
 const runtimeSystemVariables = (window as any)?._env_;
-
 const config = {
     importercalcAPI: {
         url: runtimeSystemVariables?.API_URL || 'http://importercalc.local',
@@ -15,5 +14,4 @@ const config = {
 };
 console.log('App configuration', config);
 export default Object.freeze(config);
-
 // PATTERN SINGLETON

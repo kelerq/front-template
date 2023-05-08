@@ -1,7 +1,5 @@
 import { TabsNavigator } from 'shared-ui/organisms/TabsNavigator';
-import React, { Suspense } from 'react';
-import { UsersContainer } from './features/users/UsersContainer';
-import PermissionsContainer from './features/permissions/PermissionsContainer';
+import React from 'react';
 import { AccountContainer } from './features/account/AccountContainer';
 
 export function SettingsRoutes(): JSX.Element {
@@ -11,20 +9,6 @@ export function SettingsRoutes(): JSX.Element {
             container: <AccountContainer />,
             path: 'account',
         },
-        {
-            name: 'Użytkownicy',
-            container: <UsersContainer />,
-            path: 'users',
-        },
-        {
-            name: 'Zezwolenia',
-            container: (
-                <Suspense fallback={<div>Loading...</div>}>
-                    <PermissionsContainer />
-                </Suspense>
-            ),
-            path: 'permissions',
-        },
     ];
-    return <TabsNavigator tabs={tabs} path={'settings'} routing />;
+    return <TabsNavigator title={'User'} tabs={tabs} path={'settings'} routing />;
 }

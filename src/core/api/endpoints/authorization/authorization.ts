@@ -2,12 +2,12 @@ import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
 import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import { User } from 'core/domainModels/users/user';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
-import { mapApiModelToUser } from '../users/mappings/mapApiModelToUser';
 import { authEndpointURL as authURL } from './common';
 import { mapApiModelToLoginResponse } from './mappings/mapApiModelToLoginResponse';
+import { mapApiModelToUser } from '../users/mappings/mapApiModelToUser';
 
 export const authLogin = async (username: string, password: string): Promise<LoginResponse> => {
-    const authLoginURL = `${authURL}/login`;
+    const authLoginURL = `${authURL}/api/auth/login`;
     const loginForm = new FormData();
     loginForm.append('username', username);
     loginForm.append('password', password);
@@ -43,7 +43,7 @@ export const authSignup = async (model: SignupRequest): Promise<string> => {
 };
 
 export const authLogout = async (): Promise<string> => {
-    const authLogoutURL = `${authURL}/api/logout`;
+    const authLogoutURL = `${authURL}/api/auth/logout`;
 
     try {
         const response = await axios.get(authLogoutURL);
@@ -70,7 +70,7 @@ export const authActivation = async (email: string, activationToken: string): Pr
 };
 
 export const authUserDetails = async (): Promise<User> => {
-    const authUserDetailsURL = `${authURL}/api/me/info`;
+    const authUserDetailsURL = `${authURL}/api/users/me`;
 
     try {
         const response = await axios.get(authUserDetailsURL);

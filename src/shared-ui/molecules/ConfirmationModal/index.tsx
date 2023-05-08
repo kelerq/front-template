@@ -1,42 +1,95 @@
-import { FC } from 'react';
+import { ExclamationIcon } from 'assets/icons/icons';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
 import Button from 'shared-ui/atoms/Button';
-import { Modal } from 'shared-ui/atoms/Modal';
-import ModalBody from 'shared-ui/atoms/ModalBody';
-import ModalHeader from 'shared-ui/atoms/ModalHeader';
-import ModalFooter from 'shared-ui/atoms/MoodalFooter';
-import React from 'react';
+import { Dialog } from 'shared-ui/atoms/Dialog/Dialog';
+import { DialogContent } from 'shared-ui/atoms/Dialog/DialogContent';
 
 interface ConfirmationModalProps {
-    children: React.ReactNode;
     className?: string;
-    isOpen: boolean;
-    onClose: () => void;
-    onConfirm: () => void;
-    title: string;
-    loading?: boolean;
 }
 
-export const ConfirmationModal: FC<ConfirmationModalProps> = ({
-    children,
-    className,
-    isOpen,
-    onClose,
-    onConfirm,
-    title,
+const useConfirmationModal = () => {
+    const [open, setOpen] = useState(false);
+    const [description, setDescription] = useState<string>('');
+    const [title, setTitle] = useState<string>('');
+    const submitRef = React.useRef<() => Promise<void>>(() => Promise.resolve());
+    const [loading, setLoading] = useState(false);
+
+    const setupConfirmationModal = (onSubmit: () => Promise<void>, description: string, title?: string) => {
+        setDescription(description);
+        setTitle(title || '');
+        submitRef.current = onSubmit;
+        setOpen(true);
+    };
+
+    const handleOpenChange = (isOpen: boolean) => {
+        if (!isOpen) {
+            setOpen(false);
+        }
+    };
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        await submitRef.current();
+        setOpen(false);
+        setLoading(false);
+    };
+
+    return {
+        open,
+        handleOpenChange,
+        handleSubmit,
+        title,
+        description,
+        loading,
+        setupConfirmationModal,
+    };
+};
+
+const ConfirmationDialogTitle: React.FC<{ title: string }> = ({ title }) => (
+    <div className="flex flex-col items-center justify-center w-full h-full py-4">
+        <ExclamationIcon className="w-[10rem] h-[10rem]" viewBox="0 0 100 100" />
+        <span className="text-4xl text-black">{title}</span>
+    </div>
+);
+
+const ConfirmationDialogDescription: React.FC<{ description: string }> = ({ description }) => (
+    <div className="flex flex-col items-center justify-center w-full h-full py-4">
+        <span className="text-4xl text-center">{description}</span>
+    </div>
+);
+
+const ConfirmationDialogActions: React.FC<{ onSubmit: () => void; onCancel: () => void; loading: boolean }> = ({
+    onSubmit,
+    onCancel,
     loading,
 }) => (
-    <Modal isOpen={isOpen} onRequestClose={onClose} size="small">
-        <ModalHeader size="large">{title}</ModalHeader>
-        <ModalBody className={className} size="medium">
-            {children}
-        </ModalBody>
-        <ModalFooter className={className}>
-            <Button onClick={onConfirm} className="mr-2" size="medium" variant="primary" modifier="outline" loading={loading}>
-                Confirm
-            </Button>
-            <Button onClick={onClose} size="medium" modifier="outline" disabled={loading}>
-                Cancel
-            </Button>
-        </ModalFooter>
-    </Modal>
+    <div className="flex flex-row justify-center px-12 py-4">
+        <Button onClick={onSubmit} className="w-full" variant="primary" loading={loading} size="large">
+            Potwierdź
+        </Button>
+        <Button onClick={onCancel} className="w-full ml-2" variant="accent" disabled={loading} size="large">
+            Zamknij
+        </Button>
+    </div>
 );
+
+export const ConfirmationModal = forwardRef(({ className }: ConfirmationModalProps, ref) => {
+    const { open, handleOpenChange, handleSubmit, title, description, loading, setupConfirmationModal } = useConfirmationModal();
+
+    useImperativeHandle(ref, () => {
+        return {
+            setupConfirmationModal,
+        };
+    });
+
+    return (
+        <Dialog open={open} onOpenChange={handleOpenChange}>
+            <DialogContent size="small">
+                <ConfirmationDialogTitle title={title} />
+                <ConfirmationDialogDescription description={description} />
+                <ConfirmationDialogActions onSubmit={handleSubmit} onCancel={() => handleOpenChange(false)} loading={loading} />
+            </DialogContent>
+        </Dialog>
+    );
+});

@@ -1,23 +1,19 @@
 import { VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
-import { InputContainer } from 'shared-ui/atoms/InputContainer';
-
+import React, { InputHTMLAttributes, useEffect, useRef, useState } from 'react';
 import { cva } from 'class-variance-authority';
-import Label from 'shared-ui/atoms/Label';
-import { ErrorMessage } from 'shared-ui/atoms/ErrorMessage';
 
 const inputClasses = cva('w-full rounded-lg bg-transparent outline-none', {
     variants: {
         variant: {
-            default: 'border border-gray hover:border-gray-hover focus:border-purple',
+            default: 'border border-base-border focus:border-base-400',
             secondary: '',
             tertiary: '',
         },
-        size: {
-            small: 'text-xs px-3 h-7',
-            medium: 'text-sm px-4 h-8',
-            large: 'text-md px-6 h-12',
+        dimensions: {
+            small: 'text-sm px-3 h-7',
+            medium: 'text-md px-4 h-8',
+            large: 'text-lg px-6 h-12',
         },
         width: {
             small: 'w-48',
@@ -30,15 +26,14 @@ const inputClasses = cva('w-full rounded-lg bg-transparent outline-none', {
     },
     defaultVariants: {
         variant: 'default',
-        size: 'small',
+        dimensions: 'small',
     },
 });
 
-type TextInputProps = VariantProps<typeof inputClasses> & {
+interface TextInputProps extends VariantProps<typeof inputClasses> {
     disabled?: boolean;
     password?: boolean;
     autofocus?: boolean;
-    label?: string | JSX.Element;
     value?: any;
     placeholder?: string;
     error?: string;
@@ -47,22 +42,23 @@ type TextInputProps = VariantProps<typeof inputClasses> & {
     onChange?: (newValue: any) => void;
     onClick?: () => void;
     register?: any;
-};
+}
 
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+export const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>> = React.forwardRef(
     (
         {
-            disabled,
-            error,
-            label,
-            password,
-            placeholder,
-            value,
             className,
             containerClassName,
+            value,
             onChange,
             onClick,
+            placeholder,
+            dimensions,
+            error,
+            password,
+            size,
             register,
+            disabled,
             ...restProps
         },
         ref,
@@ -80,26 +76,21 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             const newValue = e.target.value;
             setText(newValue);
-            onChange?.(newValue);
+            onChange?.(e);
         };
 
         return (
-            <InputContainer className={classNames(containerClassName)}>
-                <Label content={label}>
-                    <input
-                        className={classNames(inputClasses({ fullWidth: restProps.fullWidth }), className)}
-                        value={text}
-                        onChange={handleChange}
-                        onClick={onClick}
-                        type={password ? 'password' : 'text'}
-                        ref={ref}
-                        placeholder={placeholder}
-                        disabled={disabled}
-                        {...register}
-                    />
-                    {error && <ErrorMessage message={error} visible />}
-                </Label>
-            </InputContainer>
+            <input
+                className={classNames(inputClasses({ fullWidth: restProps.fullWidth, dimensions }), className)}
+                value={text}
+                onChange={handleChange}
+                onClick={onClick}
+                ref={ref}
+                placeholder={placeholder}
+                disabled={disabled}
+                {...restProps}
+                {...register}
+            />
         );
     },
 );

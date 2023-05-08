@@ -4,10 +4,11 @@
 
 @layer base {
     :root {
-        --navigation-height: 5rem;
+        --navigation-height: 7rem;
+        --subnav-height: 7.1rem;
     }
     html {
-        @apply h-full font-sans text-base-content bg-base-200;
+        @apply h-full font-sans bg-white text-base-content;
         font-size: 62.5%;
     }
 }
@@ -15,5 +16,11 @@
 @layer utilities {
     .text-shadow {
         text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
+    }
+    .skeleton {
+        @apply text-transparent animate-pulse rounded-xl bg-gradient-to-r from-neutral-content to-base-300;
+    }
+    .skeletonRound {
+        @apply rounded-full animate-pulse bg-gradient-to-r from-neutral-content to-base-300;
     }
 }

@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Container from 'shared-ui/atoms/Container';
 import { NavigationPanel } from '../../molecules/NavigationPanel';
 import { TabView } from './models/tabView';
-
 interface TabNavigatorProps {
+    title: string;
     tabs: Array<TabView>;
     activeTab?: number;
     path: string;
@@ -15,6 +15,7 @@ interface TabNavigatorProps {
 }
 
 export const TabsNavigator: React.FC<TabNavigatorProps> = ({
+    title,
     tabs,
     path,
     routing = false,
@@ -39,9 +40,16 @@ export const TabsNavigator: React.FC<TabNavigatorProps> = ({
     };
 
     return (
-        <Container>
-            <NavigationPanel tabs={tabs} path={path} routing={routing} activeTab={activeTab} setActiveTab={setActiveTab} />
-            {renderContent()}
+        <Container className="flex flex-col overflow-auto bg-white lg:flex-row">
+            <NavigationPanel
+                title={title}
+                tabs={tabs}
+                path={path}
+                routing={routing}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+            />
+            <div className="w-screen">{renderContent()}</div>
         </Container>
     );
 };

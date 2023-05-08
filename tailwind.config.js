@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}', ['./app/**/*.{ts,tsx}']],
@@ -7,13 +8,13 @@ module.exports = {
                 sans: '"Arial",--apple-system,BlinkMacSystemFont,"Segoe UI",Rot',
             },
             fontSize: {
-                xs: ['0.75rem', '1'],
-                sm: ['0.875rem', '1.25'],
-                lg: ['1.125rem', '1.75'],
-                xl: ['1.25rem', '1.75'],
-                '2xl': ['1.5rem', '2'],
-                '3xl': ['1.875rem', '2.25'],
-                '4xl': ['2.25rem', '2.5'],
+                xs: ['1.2rem', '1'],
+                sm: ['1.4rem', '1.25'],
+                lg: ['1.8rem', '1.75'],
+                xl: ['2rem', '1.75'],
+                '2xl': ['2.4rem', '2'],
+                '3xl': ['3rem', '2.25'],
+                '4xl': ['3.6rem', '2.5'],
             },
             colors: {
                 white: '#fff',
@@ -58,7 +59,7 @@ module.exports = {
                 10: '4rem',
                 11: '4.4rem',
                 12: '4.8rem',
-                'navigation-height': 'var(--navigation-height)',
+                'navigation-height': 'var(--navigation-)',
             },
             fontWeight: {
                 light: '400',
@@ -67,10 +68,141 @@ module.exports = {
             },
             backgroundImage: {},
             boxShadow: {
-                primary: '4px 4px 10px 5px rgba(0, 0, 0, 0.35)',
-                secondary: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                lg: '4px 4px 10px 5px rgba(0, 0, 0, 0.35)',
+                md: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            },
+            animation: {
+                scaleIn: 'scaleIn 200ms ease',
+                scaleOut: 'scaleOut 200ms ease',
+                fadeIn: 'fadeIn 200ms ease',
+                fadeOut: 'fadeOut 200ms ease',
+                enterFromLeft: 'enterFromLeft 250ms ease',
+                enterFromRight: 'enterFromRight 400ms ease',
+                exitToLeft: 'exitToLeft 250ms ease',
+                exitToRight: 'exitToRight 250ms ease',
+                hide: 'hide 100ms ease-in',
+                slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+                swipeOut: 'swipeOut 100ms ease-out',
+                overlayShow: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+                contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideDownAndFade: 'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideLeftAndFade: 'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+                slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+            keyframes: {
+                slideDownAndFade: {
+                    from: { opacity: 0, transform: 'translateY(-2px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                slideLeftAndFade: {
+                    from: { opacity: 0, transform: 'translateX(2px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+                slideUpAndFade: {
+                    from: { opacity: 0, transform: 'translateY(2px)' },
+                    to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                slideRightAndFade: {
+                    from: { opacity: 0, transform: 'translateX(-2px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+                overlayShow: {
+                    from: { opacity: 0 },
+                    to: { opacity: 1 },
+                },
+                contentShow: {
+                    from: { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+                    to: { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+                },
+                enterFromRight: {
+                    from: { opacity: 0, transform: 'translateX(200px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+                enterFromLeft: {
+                    from: { opacity: 0, transform: 'translateX(-200px)' },
+                    to: { opacity: 1, transform: 'translateX(0)' },
+                },
+                exitToRight: {
+                    from: { opacity: 1, transform: 'translateX(0)' },
+                    to: { opacity: 0, transform: 'translateX(200px)' },
+                },
+                exitToLeft: {
+                    from: { opacity: 1, transform: 'translateX(0)' },
+                    to: { opacity: 0, transform: 'translateX(-200px)' },
+                },
+                scaleIn: {
+                    from: { opacity: 0, transform: 'rotateX(-10deg) scale(0.9)' },
+                    to: { opacity: 1, transform: 'rotateX(0deg) scale(1)' },
+                },
+                scaleOut: {
+                    from: { opacity: 1, transform: 'rotateX(0deg) scale(1)' },
+                    to: { opacity: 0, transform: 'rotateX(-10deg) scale(0.95)' },
+                },
+                fadeIn: {
+                    from: { opacity: 0 },
+                    to: { opacity: 1 },
+                },
+                fadeOut: {
+                    from: { opacity: 1 },
+                    to: { opacity: 0 },
+                },
+                hide: {
+                    from: { opacity: 1 },
+                    to: { opacity: 0 },
+                },
+                slideIn: {
+                    from: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
+                    to: { transform: 'translateX(0))' },
+                },
+                swipeOut: {
+                    from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
+                    to: { transform: 'translateX(calc(100% + var(--viewport-padding)))' },
+                },
             },
         },
     },
-    plugins: [],
+    plugins: [
+        plugin(({ matchUtilities }) => {
+            matchUtilities({
+                perspective: value => ({
+                    perspective: value,
+                }),
+            });
+        }),
+        plugin(function (helpers) {
+            // variants that help styling Radix-UI components
+            dataStateVariant('open', helpers);
+            dataStateVariant('closed', helpers);
+            dataStateVariant('on', helpers);
+            dataStateVariant('checked', helpers);
+            dataStateVariant('unchecked', helpers);
+        }),
+    ],
 };
+
+function dataStateVariant(
+    state,
+    {
+        addVariant, // for registering custom variants
+        e, // for manually escaping strings meant to be used in class names
+    },
+) {
+    addVariant(`data-state-${state}`, ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.${e(`data-state-${state}${separator}${className}`)}[data-state='${state}']`;
+        });
+    });
+
+    addVariant(`group-data-state-${state}`, ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.group[data-state='${state}'] .${e(`group-data-state-${state}${separator}${className}`)}`;
+        });
+    });
+
+    addVariant(`peer-data-state-${state}`, ({ modifySelectors, separator }) => {
+        modifySelectors(({ className }) => {
+            return `.peer[data-state='${state}'] ~ .${e(`peer-data-state-${state}${separator}${className}`)}`;
+        });
+    });
+}

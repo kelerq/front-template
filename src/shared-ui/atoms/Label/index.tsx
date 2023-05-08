@@ -1,15 +1,15 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
+import * as RadixLabel from '@radix-ui/react-label';
 import React from 'react';
 
-const labelClassesProvider = cva('relative', {
+const labelClassesProvider = cva('', {
     variants: {
         variant: {
-            input: 'bg-transparent text-white-dark',
+            input: 'bg-transparent text-base-content',
         },
-
         size: {
-            tiny: 'text-xs mt-3 mb-1',
+            tiny: 'text-xs',
             small: 'text-sm',
             medium: 'text-md',
             large: 'text-lg',
@@ -26,18 +26,18 @@ const labelClassesProvider = cva('relative', {
 
 interface LabelProps extends VariantProps<typeof labelClassesProvider> {
     id?: string;
-    content?: string | JSX.Element;
+    htmlFor: string;
     children: React.ReactNode;
+    className?: string;
 }
 
-const Label: React.FC<LabelProps> = ({ content, children, ...variantProps }) => {
+const Label: React.FC<LabelProps> = ({ htmlFor, children, className, ...variantProps }) => {
     const labelClasses = labelClassesProvider(variantProps);
 
     return (
-        <>
-            {content ? <label className={classNames(labelClasses)}>{content}</label> : <></>}
+        <RadixLabel.Root className={classNames(labelClasses, className)} htmlFor={htmlFor}>
             {children}
-        </>
+        </RadixLabel.Root>
     );
 };
 

@@ -7,7 +7,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import Row from '../Row';
 
 const createCheckboxClasses = () => {
-    return cva('w-4 h-4 rounded-lg', {
+    return cva('w-4 h-4 rounded-lg transition delay-50 duration-300', {
         variants: {
             variant: {
                 default: 'bg-neutral',
@@ -37,7 +37,7 @@ interface InputCheckboxProps extends VariantProps<typeof checkboxClasses> {
 }
 
 const InputCheckbox: FC<InputCheckboxProps> = ({ label, className, checked, onChange, disabled, variant = 'default' }) => {
-    const id = _uniqueId('id-');
+    const id = _uniqueId('id-input-checkbox-');
 
     const inputCheckboxClassNames = checkboxClasses({
         variant,
