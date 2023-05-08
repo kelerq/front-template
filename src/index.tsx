@@ -7,14 +7,26 @@ import { App } from 'templates/App';
 import { store } from 'shared-state/store';
 import { BrowserRouter } from 'react-router-dom';
 import { loginCachedUserThunk } from 'shared-state/global/authorization/reducer';
+import * as Toast from '@radix-ui/react-toast';
+import * as Tooltip from '@radix-ui/react-tooltip';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 store.dispatch(loginCachedUserThunk({}));
+
+const queryClient = new QueryClient();
 
 const ConnectedApp = () => (
     <ReduxProvider store={store}>
         <React.StrictMode>
             <BrowserRouter>
-                <App />
+                <QueryClientProvider client={queryClient}>
+                    <Tooltip.Provider>
+                        <Toast.Provider>
+                            <App />
+                            <Toast.Viewport />
+                        </Toast.Provider>
+                    </Tooltip.Provider>
+                </QueryClientProvider>
             </BrowserRouter>
         </React.StrictMode>
     </ReduxProvider>

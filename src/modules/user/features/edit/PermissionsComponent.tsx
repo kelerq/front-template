@@ -137,9 +137,7 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
 
     return (
         <Container className="ag-theme-alpine-dark">
-            <ConfirmationModal
-                isOpen={deleteUserPermissionModal.isOpen}
-                onClose={() => closeModal(setDeleteUserPermissionModal)}
+            {/* <ConfirmationModal
                 onConfirm={() =>
                     handleAction(
                         deleteUserPermissionModal.bulk ? bulkDeleteUserPermission : submitDeleteUserPermission,
@@ -152,8 +150,6 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                 Are you sure you want to remove this permission?
             </ConfirmationModal>
             <ConfirmationModal
-                isOpen={addUserPermissionModal.isOpen}
-                onClose={() => closeModal(setAddUserPermissionModal)}
                 onConfirm={() =>
                     handleAction(
                         addUserPermissionModal.bulk ? bulkAddUserPermission : submitAddUserPermission,
@@ -164,7 +160,7 @@ export const PermissionsComponent = ({ user, permissions, userPermissions }: Per
                 loading={addUserPermissionModal.loading}
             >
                 Are you sure you want to add this permission?
-            </ConfirmationModal>
+            </ConfirmationModal> */}
             <Row>
                 <Col className="w-1/2">
                     <TableToolbar>

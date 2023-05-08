@@ -4,6 +4,7 @@ import { UiRoutes } from 'modules/ui/Ui.routes';
 import { SettingsRoutes } from 'modules/settings/Settings.routes';
 import HomeRoutes from 'modules/home/Home.routes';
 import { UserRoutes } from 'modules/user/User.routes';
+import { ConfirmEmailPage } from 'shared-ui/pages/confirm-email';
 
 export const AuthenticatedRoutes = () => {
     return (
@@ -13,6 +14,7 @@ export const AuthenticatedRoutes = () => {
             <Route path="/im/ui/*" element={<UiRoutes />} />
             <Route path="/im/settings/*" element={<SettingsRoutes />} />
             <Route path="/im/user/*" element={<UserRoutes />} />
+            <Route path="/change-email" element={<ConfirmEmailPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
     );

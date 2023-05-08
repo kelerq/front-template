@@ -60,20 +60,17 @@ export const SignupFormContainer: React.FC = () => {
                     <FormSectionHeader className="pb-2 mt-4 mb-4 border-b border-gray">Sign up</FormSectionHeader>
                     <TextInput
                         placeholder="Enter email address..."
-                        label="Email"
                         register={register('email')}
                         error={errors.email ? errors.email.message : undefined}
                     />
                     <TextInput
                         placeholder="Enter password..."
-                        label="Password"
                         password
                         register={register('plainPassword')}
                         error={errors.plainPassword ? errors.plainPassword.message : undefined}
                     />
                     <TextInput
                         placeholder="Repeat password..."
-                        label="Repeat password"
                         password
                         register={register('repeatPlainPassword')}
                         error={errors.repeatPlainPassword ? errors.repeatPlainPassword.message : undefined}
@@ -81,13 +78,11 @@ export const SignupFormContainer: React.FC = () => {
 
                     <TextInput
                         placeholder="Enter first name..."
-                        label="First name"
                         register={register('firstName')}
                         error={errors.firstName ? errors.firstName.message : undefined}
                     />
                     <TextInput
                         placeholder="Enter last name..."
-                        label="Last name"
                         register={register('lastName')}
                         error={errors.lastName ? errors.lastName.message : undefined}
                     />

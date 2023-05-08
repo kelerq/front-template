@@ -25,11 +25,10 @@ export function LoginContainer(): JSX.Element {
                     <FormSectionHeader className="pb-2 mt-4 mb-4 border-b border-gray">Zaloguj się</FormSectionHeader>
                     <TextInput
                         value={email}
-                        onChange={value => setEmail(value)}
+                        onChange={e => setEmail(e.target.value)}
                         containerClassName="border-t border-gray pt-2"
-                        label="Email"
                     />
-                    <TextInput value={password} onChange={value => setPassword(value)} password label="Password" />
+                    <TextInput value={password} onChange={e => setPassword(e.target.value)} password />
                     <Button onClick={() => authenticate(email, password)} size="medium" fullWidth className="mt-4">
                         Log in
                     </Button>

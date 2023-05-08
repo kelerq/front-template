@@ -10,6 +10,7 @@ export const PatternTypes = {
     PostalCodeRegex: '^[0-9]{2}-[0-9]{3}$',
     PhoneNumberRegex: '^[+][0-9]{2} [0-9]{3}-[0-9]{3}-[0-9]{3}$',
     EmailRegex: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+    PasswordRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})', // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character (all special characters allowed)  ex. Test123!
     WebsiteRegex: '^[a-zA-Z0-9_.+-]+.[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     SurnameRegex: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,20}$',
     NameRegex: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,20}$',
@@ -18,5 +19,16 @@ export const PatternTypes = {
     FlatNumberRegex: '^[a-zA-Z0-9]{1,10}$',
     CityRegex: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,20}$',
     CountryRegex: '^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,20}$',
-    PasswordRegex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})',
+    SpecialCharactersRegex: '^[a-zA-Z0-9_.+-]+$',
+    OneUpperCaseRegex: '^(?=.*[A-Z])',
+    OneLowerCaseRegex: '^(?=.*[a-z])',
+    OneNumberRegex: '^(?=.*[0-9])',
+    OneSpecialCharacterRegex: '^(?=.*[!@#$%^&*])',
+    MinimumEightCharactersRegex: '^(?=.{8,})',
+};
+
+export const checkPattern = (value: any, pattern: string): boolean => {
+    const regex = new RegExp(pattern);
+    console.log(value, pattern, 'checkPattern', regex.test(value));
+    return regex.test(value);
 };

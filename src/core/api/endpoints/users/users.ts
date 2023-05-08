@@ -75,14 +75,20 @@ export const getUsers = async (url: string): Promise<Array<User>> => {
     }
 };
 
-export const updateUser = async (user: Partial<User>, userId: string): Promise<Partial<User>> => {
+export const updateUser = async (
+    changes: {
+        firstName: string;
+        lastName: string;
+    },
+    userId: string,
+): Promise<Partial<User>> => {
     const endpoint = `${usersEndpointURL}/${userId}/account`;
     try {
-        const response = await axios.put(endpoint, user);
+        const response = await axios.put(endpoint, changes);
         if (!response) {
             throw new Error('empty response');
         }
-        return user as Partial<User>;
+        return changes as Partial<User>;
     } catch (err) {
         throw Error('Error while updating user');
     }
@@ -98,5 +104,53 @@ export const blockUser = async (userId: string, reason: string): Promise<Partial
         return response.data.data as Partial<User>;
     } catch (err) {
         throw Error('Error while blocking user');
+    }
+};
+
+export const changeEmail = async (userId: string, email: string): Promise<string> => {
+    const endpoint = `${usersEndpointURL}/${userId}/change-email`;
+    try {
+        const response = await axios.patch(endpoint, { email: email });
+        if (!response) {
+            throw new Error('empty response');
+        }
+        return email;
+    } catch (err) {
+        throw Error('Error while changing email');
+    }
+};
+
+export const confirmEmail = async (email: string, token: string): Promise<any> => {
+    const authActivationURL = `${usersEndpointURL}/confirm-new-email`;
+
+    try {
+        const response = await axios.patch(authActivationURL, {}, { params: { email: email, token: token } });
+        if (!response) {
+            throw new Error('empty response');
+        }
+
+        return email;
+    } catch (err) {
+        throw new Error('Error while confirming email');
+    }
+};
+
+export const changePassword = async (
+    userId: string,
+    change: {
+        plainPassword: string;
+        repeatPlainPassword: string;
+    },
+): Promise<boolean> => {
+    const endpoint = `${usersEndpointURL}/${userId}/change-password`;
+    try {
+        await axios.patch(endpoint, {
+            plainPassword: change.plainPassword,
+            repeatPlainPassword: change.repeatPlainPassword,
+        });
+
+        return true;
+    } catch (err) {
+        throw Error('Error while changing email');
     }
 };

@@ -25,7 +25,10 @@ export const AccountComponent = ({ user }: AccountComponentProps): JSX.Element =
         dispatch(
             updateUserThunk({
                 userId: user.id,
-                changes: changes,
+                changes: {
+                    firstName: changes.firstName || user.firstName,
+                    lastName: changes.lastName || user.lastName,
+                },
             }),
         );
     };
@@ -57,20 +60,17 @@ export const AccountComponent = ({ user }: AccountComponentProps): JSX.Element =
                 <FormSection onSubmit={handleSubmit(submit)} className="w-full">
                     <TextInput
                         placeholder="Enter email address..."
-                        label="Email"
                         register={register('email')}
                         error={errors.email ? errors.email.message : undefined}
                     />
 
                     <TextInput
                         placeholder="Enter first name..."
-                        label="First name"
                         register={register('firstName')}
                         error={errors.firstName ? errors.firstName.message : undefined}
                     />
                     <TextInput
                         placeholder="Enter last name..."
-                        label="Last name"
                         register={register('lastName')}
                         error={errors.lastName ? errors.lastName.message : undefined}
                     />

@@ -1,82 +1,45 @@
 import React from 'react';
-import { ApplicationState } from 'shared-state/applicationState';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { z } from 'zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { DispatchType } from 'shared-state/configureStore';
-import { User } from 'core/domainModels/users/user';
-import { updateUserThunk } from 'shared-state/global/users/reducer';
-import Button from 'shared-ui/atoms/Button';
 import Col from 'shared-ui/atoms/Col';
 import Container from 'shared-ui/atoms/Container';
-import { FormSection } from 'shared-ui/atoms/FormSection';
-import TextInput from 'shared-ui/molecules/TextInput';
-
-const FormSchema = z.object({
-    email: z.string().email(),
-    firstName: z.string().min(2),
-    lastName: z.string().min(2),
-});
-
-type FormSchemaType = z.infer<typeof FormSchema>;
+import Row from 'shared-ui/atoms/Row';
+import Avatar from 'shared-ui/atoms/Avatar';
+import Separator from 'shared-ui/atoms/Separator';
+import { useAuthenticatedUser } from 'shared-hooks/useAuthenticatedUser';
+import classNames from 'classnames';
+import NameSection from './NameSection';
+import EmailSection from './EmailSection';
+import PasswordSection from './PasswordSection';
 
 export function AccountContainer(): JSX.Element {
-    const user = useSelector((state: ApplicationState) => state.users.authenticatedUser);
-    const dispatch = useDispatch<DispatchType>();
-
-    const submit: SubmitHandler<Partial<User>> = (changes: Partial<User>) => {
-        if (!user) return;
-        dispatch(
-            updateUserThunk({
-                userId: user.id,
-                changes: changes,
-            }),
-        );
-    };
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormSchemaType>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
-            email: user?.email,
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-        },
-    });
+    const { isLoading, user } = useAuthenticatedUser();
 
     return (
-        <Container className="h-full text-center">
-            <Col className="items-center">
-                <FormSection onSubmit={handleSubmit(submit)} className="w-3/6">
-                    <TextInput
-                        placeholder="Enter email address..."
-                        label="Email"
-                        register={register('email')}
-                        error={errors.email ? errors.email.message : undefined}
-                    />
-
-                    <TextInput
-                        placeholder="Enter first name..."
-                        label="First name"
-                        register={register('firstName')}
-                        error={errors.firstName ? errors.firstName.message : undefined}
-                    />
-                    <TextInput
-                        placeholder="Enter last name..."
-                        label="Last name"
-                        register={register('lastName')}
-                        error={errors.lastName ? errors.lastName.message : undefined}
-                    />
-                    <Button size="medium" fullWidth className="mt-4">
-                        Save
-                    </Button>
-                </FormSection>
+        <Container className="h-full px-0 text-center sm:px-8">
+            <Col className="items-center w-full px-0">
+                <Row className="flex-col items-center sm:justify-start sm:w-full sm:flex-row">
+                    <Avatar className={classNames('w-[8.5rem] h-[8.5rem]')} skeleton={isLoading} />
+                    <p className={classNames('ml-6 text-2xl font-bold', isLoading && 'skeleton')}>
+                        {user?.firstName} {user?.lastName}
+                    </p>
+                </Row>
+                <Separator className="bg-base-border data-[orientation=horizontal]:h-[0.05rem] data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+                <Row className="w-full">
+                    <Col className="items-start w-full">
+                        <NameSection isLoading={isLoading} user={user} />
+                    </Col>
+                </Row>
+                <Separator className="bg-base-border data-[orientation=horizontal]:h-[0.05rem] data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+                <Row className="w-full">
+                    <Col className="items-start w-full">
+                        <EmailSection isLoading={isLoading} user={user} />
+                    </Col>
+                </Row>
+                <Separator className="bg-base-border data-[orientation=horizontal]:h-[0.05rem] data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
+                <Row className="w-full">
+                    <Col className="items-start w-full">
+                        <PasswordSection isLoading={isLoading} user={user} />
+                    </Col>
+                </Row>
             </Col>
         </Container>
     );
