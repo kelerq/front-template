@@ -7,7 +7,7 @@ import { authEndpointURL as authURL } from './common';
 import { mapApiModelToLoginResponse } from './mappings/mapApiModelToLoginResponse';
 
 export const authLogin = async (username: string, password: string): Promise<LoginResponse> => {
-    const authLoginURL = `${authURL}/login`;
+    const authLoginURL = `${authURL}/api/auth/login`;
     const loginForm = new FormData();
     loginForm.append('username', username);
     loginForm.append('password', password);
@@ -43,7 +43,7 @@ export const authSignup = async (model: SignupRequest): Promise<string> => {
 };
 
 export const authLogout = async (): Promise<string> => {
-    const authLogoutURL = `${authURL}/api/logout`;
+    const authLogoutURL = `${authURL}/api/auth/logout`;
 
     try {
         const response = await axios.get(authLogoutURL);
