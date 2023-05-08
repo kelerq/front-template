@@ -23,7 +23,7 @@ const NavigationItem = ({ children, className, Avatar, label }) => {
                     'text-2xl data-state-open:text-primary-focus flex select-none items-center justify-between gap-[0.2rem]',
                 )}
             >
-                <Avatar className="hidden mr-2 text-neutral sm:flex" />
+                <Avatar className="hidden mr-2 text-neutral sm:flex h-[3.5rem] w-[3.5rem]" />
                 <p>
                     <span className="hidden sm:inline"> {label} </span>
                 </p>
@@ -31,7 +31,7 @@ const NavigationItem = ({ children, className, Avatar, label }) => {
                     className="text-black relative top-[0.1rem] transition-transform duration-[250] ease-in group-data-[state=open]:-rotate-180 hidden sm:flex"
                     aria-hidden
                 />
-                <div className="flex flex-col items-center sm:hidden group-data-[state=open]:text-primary-focus">
+                <div className="flex flex-col h-[3.5rem] w-[3.5rem] justify-center items-center sm:hidden group-data-[state=open]:text-primary-focus">
                     <Avatar label={label} />
                 </div>
             </NavigationMenu.Trigger>

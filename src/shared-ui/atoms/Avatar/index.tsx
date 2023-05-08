@@ -7,13 +7,19 @@ interface AvatarProps {
     label?: string;
     src?: string;
     fallback?: string;
+    skeleton?: boolean;
 }
 
-const Avatar = ({ className, label, src, fallback }: AvatarProps) => (
+const Avatar = ({ className, label, src, fallback, skeleton }: AvatarProps) => (
     <div className={classNames('flex flex-col', className)}>
-        <RadixAvatar.Root className="bg-neutral inline-flex h-[3.5rem] w-[3.5rem] select-none items-center justify-center overflow-hidden rounded-full align-middle">
+        <RadixAvatar.Root
+            className={classNames(
+                'inline-flex items-center justify-center overflow-hidden align-middle rounded-full select-none bg-neutral',
+                skeleton && 'skeletonRound',
+            )}
+        >
             <RadixAvatar.Image
-                className="h-full w-full rounded-[inherit] object-cover"
+                className={classNames('h-full w-full rounded-[inherit] object-cover', skeleton && 'invisible')}
                 src="https://images.unsplash.com/photo-1511485977113-f34c92461ad9?ixlib=rb-1.2.1&w=128&h=128&dpr=2&q=80"
                 alt="Avatar"
             ></RadixAvatar.Image>

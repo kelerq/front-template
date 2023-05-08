@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
-import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
+import React from 'react';
 import Button from 'shared-ui/atoms/Button';
 import Container from 'shared-ui/atoms/Container';
+import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
+import { ConfirmationModalHandle } from 'shared-ui/molecules/ConfirmationModal/confirmationModalHandle';
+
+const wait = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 2000));
 
 export const ModalExamplesConatainer = () => {
-    const [confirmationModal, setConfirmationModal] = useState({
-        isOpen: false,
-    });
-
-    const closeModal = () => {
-        setConfirmationModal({ isOpen: false });
-    };
-    const confirmModalQuestion = () => {
-        closeModal();
-    };
-
-    const openModal = () => {
-        setConfirmationModal({ isOpen: true });
-    };
+    const confirmationModalRef = React.useRef<ConfirmationModalHandle>(null);
 
     return (
         <Container className="flex flex-row flex-wrap">
-            <ConfirmationModal isOpen={confirmationModal.isOpen} onClose={closeModal} onConfirm={confirmModalQuestion}>
-                Czy jesteś pewien, że chcesz opuścić formularz?
-            </ConfirmationModal>
-            <Button className="m-7" size="medium" onClick={openModal}>
+            <ConfirmationModal ref={confirmationModalRef} />
+            <Button
+                size="medium"
+                onClick={() => {
+                    confirmationModalRef.current?.setupConfirmationModal(wait, 'Czy jesteś pewien, że chcesz opuścić okno?');
+                }}
+            >
                 Open confirmation modal{' '}
             </Button>
         </Container>
