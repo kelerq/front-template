@@ -5,19 +5,12 @@ import InputCheckbox from 'shared-ui/atoms/InputCheckbox';
 import Col from 'shared-ui/atoms/Col';
 import Container from 'shared-ui/atoms/Container';
 import Row from 'shared-ui/atoms/Row';
-import { ConfirmationModalHandle } from 'shared-ui/molecules/ConfirmationModal/confirmationModalHandle';
-import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
-
-const wait = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 2000));
 
 export function ButtonExamplesContainer(): JSX.Element {
     const [checked, setChecked] = React.useState(false);
-    const confirmationModalRef = React.useRef<ConfirmationModalHandle>(null);
-
     return (
-        <Container>
-            <ConfirmationModal ref={confirmationModalRef} />
-            <Row>
+        <Container className="flex flex-row flex-wrap">
+            <Row className="flex flex-row flex-wrap">
                 <Col title="Regular" className="items-start">
                     <Button size="tiny">Action (tiny) </Button>
                     <Button size="small">Action (small)</Button>
@@ -165,14 +158,6 @@ export function ButtonExamplesContainer(): JSX.Element {
                     </Button>
                 </Col>
             </Row>
-            <Button
-                size="medium"
-                onClick={() => {
-                    confirmationModalRef.current?.setupConfirmationModal(wait, 'Czy jesteś pewien, że chcesz opuścić okno?');
-                }}
-            >
-                Open confirmation modal{' '}
-            </Button>
         </Container>
     );
 }

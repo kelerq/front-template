@@ -42,7 +42,6 @@ interface TextInputProps extends VariantProps<typeof inputClasses> {
     onChange?: (newValue: any) => void;
     onClick?: () => void;
     register?: any;
-    ref?: React.Ref<HTMLInputElement>;
 }
 
 export const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputElement>> = React.forwardRef(
@@ -89,7 +88,6 @@ export const TextInput: React.FC<TextInputProps & InputHTMLAttributes<HTMLInputE
                 ref={ref}
                 placeholder={placeholder}
                 disabled={disabled}
-                pattern={restProps.pattern}
                 {...restProps}
                 {...register}
             />

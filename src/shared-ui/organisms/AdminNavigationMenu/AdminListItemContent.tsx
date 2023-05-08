@@ -15,7 +15,7 @@ const AdminListItemContent: React.FC<ListItemContentProps> = ({ isHovered, Icon,
     return (
         <div className={classNames('grid grid-cols-12 grid-rows-1 rounded-lg p-2 sm:p-0', isHovered && 'bg-accent-focus')}>
             <div className={classNames('col-start-1 col-end-3 row-start-1 row-end-2 p-2 justify-self-start place-self-center')}>
-                <Icon className={classNames('w-[4rem] h-[4rem] fill-base-400', isHovered && 'fill-primary-focus')} />
+                <Icon className={classNames('w-[4rem] h-[4rem] stroke-base-400', isHovered && 'stroke-primary-focus')} />
             </div>
             <div className="col-start-3 col-end-12 row-start-1 row-end-2 place-self-center justify-self-stretch">
                 <p className="text-2xl font-bold sm:text-xl text-base-400">{title}</p>

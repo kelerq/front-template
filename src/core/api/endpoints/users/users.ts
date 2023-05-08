@@ -5,7 +5,7 @@ import { UserPermission } from 'core/domainModels/users/userPermission';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
 import { mapApiModelToUserPermission } from './mappings/mapApiModelToUserPermission';
 import { mapApiModelToUser } from './mappings/mapApiModelToUser';
-import { UserApiModel } from './models/userApiModel';
+import { UserApiModel } from './models/UserApiModel';
 
 export const usersEndpointURL = `${config.importercalcAPI.url}/api/users`;
 

@@ -5,9 +5,10 @@
 @layer base {
     :root {
         --navigation-height: 7rem;
+        --subnav-height: 7.1rem;
     }
     html {
-        @apply h-full font-sans text-base-content bg-base-200;
+        @apply h-full font-sans bg-white text-base-content;
         font-size: 62.5%;
     }
 }

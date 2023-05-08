@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TabItem from 'shared-ui/atoms/TabItem';
+import SubTabItem from 'shared-ui/atoms/SubTabItem';
 import { TabView } from '../../organisms/TabsNavigator/models/tabView';
-import { NavHeader } from 'shared-ui/atoms/NavHeader';
-interface NavigationPanelProps {
-    title: string;
-    tabs: Array<TabView>;
+
+interface SubNavPanelProps {
+    subTabs: Array<TabView>;
     path: string;
     disabled?: boolean;
     routing?: boolean;
@@ -13,26 +12,17 @@ interface NavigationPanelProps {
     setActiveTab: (newTabIndex: number) => void;
 }
 
-export const NavigationPanel = ({
-    title,
-    tabs,
-    path,
-    disabled,
-    routing = true,
-    activeTab,
-    setActiveTab,
-}: NavigationPanelProps) => (
-    <div className="flex flex-row w-screen p-0 overflow-x-auto text-sm lg:border-r lg:min-h-screen lg:w-1/4 xl:w-1/6 lg:flex-col border-base-border text-base-400 lg:bg-white bg-accent-focus">
-        <NavHeader>{title}</NavHeader>
+export const SubNavPanel = ({ subTabs, path, disabled, routing = true, activeTab, setActiveTab }: SubNavPanelProps) => (
+    <div className="flex flex-row w-full overflow-x-auto border-b border-base-border h-[var(--subnav-height)]">
         <nav>
-            <ul className="flex flex-row -mb-px lg:flex-col">
-                {tabs.map((tab, index) => (
+            <ul className="flex flex-row ">
+                {subTabs.map((subTab, index) => (
                     <React.Fragment key={index}>
                         {routing ? (
-                            <Link to={`${tab.path}`}>
-                                <TabItem
-                                    icon={tab.icon}
-                                    name={tab.name}
+                            <Link to={`${subTab.path}`}>
+                                <SubTabItem
+                                    icon={subTab.icon}
+                                    name={subTab.name}
                                     index={index}
                                     path={path}
                                     activeTab={activeTab}
@@ -40,9 +30,9 @@ export const NavigationPanel = ({
                                 />
                             </Link>
                         ) : (
-                            <TabItem
-                                icon={tab.icon}
-                                name={tab.name}
+                            <SubTabItem
+                                icon={subTab.icon}
+                                name={subTab.name}
                                 index={index}
                                 path={path}
                                 activeTab={activeTab}
