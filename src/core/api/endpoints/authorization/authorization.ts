@@ -2,9 +2,9 @@ import { LoginResponse } from 'core/domainModels/authorization/loginResponse';
 import { SignupRequest } from 'core/domainModels/authorization/signupRequest';
 import { User } from 'core/domainModels/users/user';
 import { axiosInstance as axios } from '../../axios/axiosInstance';
-import { mapApiModelToUser } from '../users/mappings/mapApiModelToUser';
 import { authEndpointURL as authURL } from './common';
 import { mapApiModelToLoginResponse } from './mappings/mapApiModelToLoginResponse';
+import { mapApiModelToUser } from '../users/mappings/mapApiModelToUser';
 
 export const authLogin = async (username: string, password: string): Promise<LoginResponse> => {
     const authLoginURL = `${authURL}/api/auth/login`;
@@ -70,7 +70,7 @@ export const authActivation = async (email: string, activationToken: string): Pr
 };
 
 export const authUserDetails = async (): Promise<User> => {
-    const authUserDetailsURL = `${authURL}/api/me/info`;
+    const authUserDetailsURL = `${authURL}/api/users/me`;
 
     try {
         const response = await axios.get(authUserDetailsURL);

@@ -17,4 +17,10 @@
     .text-shadow {
         text-shadow: rgb(0 0 0 / 25%) 0px 3px 8px;
     }
+    .skeleton {
+        @apply text-transparent animate-pulse rounded-xl bg-gradient-to-r from-neutral-content to-base-300;
+    }
+    .skeletonRound {
+        @apply rounded-full animate-pulse bg-gradient-to-r from-neutral-content to-base-300;
+    }
 }

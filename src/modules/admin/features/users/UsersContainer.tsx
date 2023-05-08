@@ -7,11 +7,9 @@ import { AgGridReact } from 'ag-grid-react';
 import { buildServerSideDataUrl } from 'core/helpers/dataFetch';
 import { blockUser, getUsers, usersEndpointURL } from 'core/api/endpoints/users/users';
 import { GridApi } from 'ag-grid-enterprise';
-import { ConfirmationModal } from 'shared-ui/molecules/ConfirmationModal';
 import { useNavigate } from 'react-router-dom';
 import { usersTableColumns, usersTableColumnsDefs } from './UsersTableColumnDefs';
 import Container from 'shared-ui/atoms/Container';
-import TextInput from 'shared-ui/molecules/TextInput';
 
 export const UsersContainer = () => {
     const navigate = useNavigate();
@@ -72,10 +70,10 @@ export const UsersContainer = () => {
     return (
         <>
             <Container className="flex flex-col h-full ag-theme-alpine-dark">
-                <ConfirmationModal isOpen={blockUserModal.isOpen} onClose={closeModal} onConfirm={confirmBlockUser}>
+                {/* <ConfirmationModal isOpen={blockUserModal.isOpen} onClose={closeModal} onConfirm={confirmBlockUser}>
                     Are you sure you want to block this user?
                     <TextInput label="Reason" value={blockUserModal.reason} onChange={onReasonChange} />
-                </ConfirmationModal>
+                </ConfirmationModal> */}
                 <AgGridReact
                     className="mt-4"
                     rowModelType="serverSide"
